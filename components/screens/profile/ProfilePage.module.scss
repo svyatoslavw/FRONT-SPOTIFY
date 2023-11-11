@@ -1,0 +1,35 @@
+.divider {
+  width: 2px; /* Ширина полосы */
+  height: 28px; /* Высота полосы */
+  background-color: #a3a3a3; /* Цвет полосы */
+  margin: 0 12px; /* Расстояние между полосой и элементами */
+}
+
+.dropdown {
+  @apply absolute mt-16 z-10 p-1 gap-1 w-[40%] bg-[#333333] rounded-xl;
+
+  animation: slideInTop 0.3s forwards ease-in-out;
+  transform: opacity(0);
+  opacity: 0;
+
+  > li {
+    @apply hover:bg-gray  hover:text-white rounded-lg bg-opacity-40 my-1 cursor-pointer hover:bg-opacity-80 duration-500 py-2 px-4 ease-linear;
+    &:hover:not(&.active) {
+      @apply bg-opacity-70;
+    }
+    // &:first-child {
+    //   @apply rounded-t-xl;
+    // }
+    // &:last-child {
+    //   @apply rounded-b-xl;
+    // }
+  }
+}
+@keyframes slideInTop {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
