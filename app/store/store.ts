@@ -1,6 +1,7 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit'
 import { persistStore } from 'redux-persist'
 import { filtersSlice } from './filters/filters.slice'
+import { playerSlice } from './player/player.slice'
 import { userSlice } from './user/user.slice'
 
 const isClient = typeof window !== 'undefined'
@@ -8,6 +9,7 @@ const isClient = typeof window !== 'undefined'
 const combinedReducers = combineReducers({
   user: userSlice.reducer,
   filters: filtersSlice.reducer,
+  player: playerSlice.reducer,
 })
 
 let mainReducer = combinedReducers

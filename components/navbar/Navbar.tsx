@@ -35,7 +35,7 @@ const Navbar = () => {
           <NavLink href="/dashboard" icon={IoSearchOutline} text="Поиск" />
         </div>
       </div>
-      <div className="h-full w-full bg-primary rounded-xl px-2 mt-2">
+      <div className="h-full overflow-scroll w-full bg-primary rounded-xl px-2 mt-2">
         <div className="flex justify-between items-center px-5">
           <NavLink icon={BiSolidPlaylist} href="/library" text="Моя медиатека" />
           <AiOutlinePlus size={25} color="gray" />
@@ -51,6 +51,7 @@ const Navbar = () => {
           {playlists &&
             playlists.map((playlist: IPlaylist) => (
               <Link
+                key={playlist.id}
                 href={`/playlist/${playlist.slug}`}
                 className="hover:bg-[#232323] p-2 rounded-lg transition-colors"
               >
