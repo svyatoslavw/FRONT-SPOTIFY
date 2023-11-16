@@ -1,16 +1,16 @@
 import { ITrack } from '@/types/track.types'
 import { useRouter } from 'next/navigation'
 import { useActions } from './useActions'
-import { useAuth } from './useAuth'
+import { useProfile } from './useProfile'
 
 const usePlay = (tracks: ITrack[]) => {
   const { push } = useRouter()
-  const { user } = useAuth()
+  const { profile } = useProfile()
   const { setId, setIds } = useActions()
 
   const onPlay = (id: number) => {
-    if (!user) {
-      push('auth/login')
+    if (!profile) {
+      push('/auth/login')
     }
 
     setId(id)

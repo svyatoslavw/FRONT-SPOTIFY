@@ -1,6 +1,6 @@
 'use client'
 import Navbar from '@/components/navbar/Navbar'
-import Player from '@/components/player/Player'
+import PlayerWrapper from '@/components/player/PlayerWrapper'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
@@ -42,7 +42,7 @@ export default function RootLayout({ children }: PropsWithChildren<unknown>) {
                     <div className="grid overflow-hidden grid-cols-[0fr,1fr] grid-rows-1 gap-x-0 gap-y-0">
                       <Navbar />
                       <div>{children}</div>
-                      <Player />
+                      <PlayerWrapper />
                     </div>
                   )}
                 </div>

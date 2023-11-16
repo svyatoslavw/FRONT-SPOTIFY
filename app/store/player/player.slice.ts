@@ -1,9 +1,11 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { PayloadAction, createSlice } from '@reduxjs/toolkit'
 import { IPlayerState } from './player.types'
 
 const initialState: IPlayerState = {
   ids: [],
   activeId: undefined,
+  volume: 0,
+  isPlaying: false,
 }
 
 export const playerSlice = createSlice({
@@ -15,6 +17,12 @@ export const playerSlice = createSlice({
     },
     setIds: (state, action) => {
       state.ids = action.payload
+    },
+    setVolume: (state, action: PayloadAction<number>) => {
+      state.volume = action.payload
+    },
+    setIsPlaying: (state, action: PayloadAction<boolean>) => {
+      state.isPlaying = action.payload
     },
     reset: (state) => {
       state.ids = []
