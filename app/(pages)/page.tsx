@@ -6,6 +6,13 @@ export const metadata: Metadata = {
   description: 'Spotify home page',
 }
 
-export default function Home() {
+// async function getTracks() {
+//   const data = await TrackService.byNews()
+
+//   return data.data
+// }
+//const tracks = await getTracks()
+
+export default async function Home() {
   return <HomePage />
 }
