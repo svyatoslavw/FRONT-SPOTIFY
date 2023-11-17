@@ -4,8 +4,9 @@ import { IUser } from './user.types'
 export interface ITrack {
   id: number
   createdAt: string
-  releaseDate: Date
+  releaseDate: string
   name: string
+  file: string
   image: string
   artistId: number
   artist: IUser
