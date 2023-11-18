@@ -1,6 +1,6 @@
 import PlaylistSlugPage from '@/components/screens/playlist/PlaylistSlugPage'
 import { PlaylistService } from '@/services/playlist/playlist.service'
-import { IPagePlaylistSlug, TypeParamPlaylistSlug } from '@/types/playlist-param'
+import { IPagePlaylistSlug, TypeParamPlaylistSlug } from '@/utils/types/playlist-param'
 import { Metadata } from 'next'
 
 export const revalidate = 60

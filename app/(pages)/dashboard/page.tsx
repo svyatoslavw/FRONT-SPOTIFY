@@ -1,7 +1,7 @@
 type Props = {}
 
 const Dashboard = (props: Props) => {
-  return <div>Dashboard</div>
+  return <div></div>
 }
 
 export default Dashboard

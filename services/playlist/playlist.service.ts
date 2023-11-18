@@ -1,5 +1,5 @@
 import { instance } from '@/api/api.interceptor'
-import { IPlaylist } from '@/types/playlist.types'
+import { IPlaylist } from '@/utils/types/playlist.types'
 
 const PLAYLISTS = 'playlists'
 

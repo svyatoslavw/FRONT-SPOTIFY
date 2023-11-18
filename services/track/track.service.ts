@@ -1,5 +1,5 @@
 import { instance } from '@/api/api.interceptor'
-import { ITrack } from '@/types/track.types'
+import { ITrack } from '@/utils/types/track.types'
 
 const TRACKS = 'tracks'
 

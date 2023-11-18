@@ -2,7 +2,7 @@
 import { useAuth } from '@/hooks/useAuth'
 import { useIsAdminPanel } from '@/hooks/useIsAdminPanel'
 import { PlaylistService } from '@/services/playlist/playlist.service'
-import { IPlaylist } from '@/types/playlist.types'
+import { IPlaylist } from '@/utils/types/playlist.types'
 import { useQuery } from '@tanstack/react-query'
 import Image from 'next/image'
 import Link from 'next/link'

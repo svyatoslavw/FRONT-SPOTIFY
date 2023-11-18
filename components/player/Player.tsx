@@ -1,7 +1,7 @@
 'use client'
 import { useActions } from '@/hooks/useActions'
 import { useTypedSelector } from '@/hooks/useTypedSelector'
-import { ITrack } from '@/types/track.types'
+import { ITrack } from '@/utils/types/track.types'
 import Image from 'next/image'
 import { FC, useEffect, useState } from 'react'
 import { HiPause, HiPlay } from 'react-icons/hi'

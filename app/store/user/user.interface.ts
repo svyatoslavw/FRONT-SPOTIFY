@@ -1,4 +1,4 @@
-import { EnumUserRoles, IUser } from '@/types/user.types'
+import { EnumUserRoles, IUser } from '@/utils/types/user.types'
 
 export interface IUserState {
   email: string

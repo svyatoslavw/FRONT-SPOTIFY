@@ -1,5 +1,5 @@
 import { instance } from '@/api/api.interceptor'
-import { IFullUser, IUser } from '@/types/user.types'
+import { IFullUser, IUser } from '@/utils/types/user.types'
 
 const USERS = 'users'
 

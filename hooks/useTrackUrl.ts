@@ -1,7 +1,7 @@
 'use client'
 
 import { TrackService } from '@/services/track/track.service'
-import { ITrack } from '@/types/track.types'
+import { ITrack } from '@/utils/types/track.types'
 import { useQuery } from '@tanstack/react-query'
 import { useState } from 'react'
 

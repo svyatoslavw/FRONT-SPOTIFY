@@ -1,4 +1,4 @@
-import { IUser } from '@/types/user.types'
+import { IUser } from '@/utils/types/user.types'
 import Image from 'next/image'
 import { FC } from 'react'
 
