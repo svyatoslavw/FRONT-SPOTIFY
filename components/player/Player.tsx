@@ -1,7 +1,7 @@
 'use client'
 import { useActions } from '@/hooks/useActions'
 import { useTypedSelector } from '@/hooks/useTypedSelector'
-import { ITrack } from '@/utils/types/track.types'
+import { ITrack } from '@/types/track.types'
 import Image from 'next/image'
 import { FC, useEffect, useState } from 'react'
 import { HiPause, HiPlay } from 'react-icons/hi'
@@ -42,7 +42,7 @@ const Player: FC<TrackProps> = ({ activeId, track, trackUrl }) => {
     setId(prevTrack)
   }
 
-  const [play, { pause, sound, duration }] = useSound(trackUrl, {
+  const [play, { pause, sound }] = useSound(trackUrl, {
     volume: volume,
 
     onplay: () => setIsPlaying(true),
@@ -78,7 +78,6 @@ const Player: FC<TrackProps> = ({ activeId, track, trackUrl }) => {
     }
   }
 
-  //if (!track || !track.file || activeId) return null
   return (
     <div className="h-20 w-full justify-between fixed bottom-0 flex items-center px-3 bg-black">
       {track ? (

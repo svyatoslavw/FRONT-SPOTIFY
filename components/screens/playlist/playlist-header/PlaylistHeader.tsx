@@ -1,4 +1,4 @@
-import { IPlaylist } from '@/utils/types/playlist.types'
+import { IPlaylist } from '@/types/playlist.types'
 import Image from 'next/image'
 import { FC } from 'react'
 

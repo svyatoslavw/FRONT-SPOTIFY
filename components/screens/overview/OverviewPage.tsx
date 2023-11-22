@@ -8,6 +8,7 @@ import { IoIosCard, IoIosEye, IoIosRefresh } from 'react-icons/io'
 import { IoDiamondOutline } from 'react-icons/io5'
 import { TbUsersPlus } from 'react-icons/tb'
 import OverviewLink from './OverviewLink'
+import ProfilePremium from './ProfilePremium'
 
 const OverviewPage: FC = () => {
   const { profile } = useProfile()
@@ -16,15 +17,7 @@ const OverviewPage: FC = () => {
   return (
     <div className="bg-gradient-custom flex flex-col items-center justify-center py-10 gap-6 overflow-hidden overflow-y-hidden">
       {profile.premium ? (
-        <div className=" bg-[#232323] w-[600px] px-4 py-2 rounded-lg">
-          <div className="flex justify-between">
-            <h6 className="text-[10px]">Моя подписка</h6>
-            <BiLogoSpotify size={30} color="gray" />
-          </div>
-
-          <h1 className="font-semibold text-3xl pb-3">Premium Family</h1>
-          <p className=" py-2 text-sm text-slate-300">Вы участник подписки Family</p>
-        </div>
+        <ProfilePremium />
       ) : (
         <div className=" bg-[#232323] w-[600px] px-4 py-2 rounded-lg">
           <div className="flex justify-between">

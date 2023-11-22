@@ -10,6 +10,7 @@ import { Provider } from 'react-redux'
 import { PersistGate } from 'redux-persist/integration/react'
 import './globals.css'
 import AuthProvider from './providers/auth-provider/AuthProvider'
+import ToasterProvider from './providers/toaster-provider/ToasterProvider'
 import { persistor, store } from './store/store'
 
 const inter = Inter({ subsets: ['latin'], weight: ['200', '300', '400', '500', '600', '700'] })
@@ -35,6 +36,7 @@ export default function RootLayout({ children }: PropsWithChildren<unknown>) {
           <Provider store={store}>
             <PersistGate persistor={persistor} loading={null}>
               <AuthProvider>
+                <ToasterProvider />
                 <div>
                   {pathname.includes('auth') || pathname.includes('account') ? (
                     <div>{children}</div>

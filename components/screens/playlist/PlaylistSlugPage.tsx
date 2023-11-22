@@ -1,14 +1,20 @@
 'use client'
 import Header from '@/components/header/Header'
+import Button from '@/components/ui/button/Button'
 import usePlay from '@/hooks/usePlay'
+import { useProfile } from '@/hooks/useProfile'
 import { useTypedSelector } from '@/hooks/useTypedSelector'
-import { IPlaylist } from '@/utils/types/playlist.types'
-import { ITrack } from '@/utils/types/track.types'
+import { UserService } from '@/services/user.service'
+import { IPlaylist } from '@/types/playlist.types'
+import { ITrack } from '@/types/track.types'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 import clsx from 'clsx'
 import { average } from 'color.js'
 import Image from 'next/image'
 import { FC, useEffect, useState } from 'react'
+import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai'
 import { BsFillPauseFill, BsFillPlayFill } from 'react-icons/bs'
+import { FaPlay } from 'react-icons/fa'
 import PlaylistHeader from './playlist-header/PlaylistHeader'
 
 interface ISlugPage {
@@ -35,6 +41,21 @@ const PlaylistSlugPage: FC<ISlugPage> = ({ playlist }) => {
 
   const openHover = (index: number) => setIsHovered(index)
   const closeHover = () => setIsHovered(null)
+
+  const { profile } = useProfile()
+  const queryClient = useQueryClient()
+
+  const { mutate } = useMutation({
+    mutationKey: ['favorite'],
+    mutationFn: () => UserService.toggleFavorite(playlist.id),
+    onSuccess() {
+      queryClient.invalidateQueries({ queryKey: ['profile'] })
+    },
+  })
+
+  if (!profile) return null
+  const isFavorite =
+    profile.favorites && profile.favorites.some((favorite) => favorite.playlist.id === +playlist.id)
   return (
     <div className="overflow-scroll ml-0 h-[100vh] m-2 bg-gradient-custom rounded-xl">
       <div
@@ -48,6 +69,25 @@ const PlaylistSlugPage: FC<ISlugPage> = ({ playlist }) => {
       </div>
 
       <div className="w-full">
+        <div className="flex items-center gap-5 py-4 px-10">
+          <Button onClick={() => onPlay(playlist.id)} className={'hover:scale-125'}>
+            <div className="bg-green-500 p-3.5 flex items-center justify-center rounded-full">
+              <FaPlay size={16} />
+            </div>
+          </Button>
+          <Button
+            onClick={() => {
+              mutate()
+            }}
+            className={''}
+          >
+            {isFavorite ? (
+              <AiFillHeart color="#1ed760" size={38} />
+            ) : (
+              <AiOutlineHeart color="gray" size={38} />
+            )}
+          </Button>
+        </div>
         <div className="px-10">
           {playlist &&
             playlist.tracks.map((track: ITrack, index) => (

@@ -1,5 +1,5 @@
 import { instance } from '@/api/api.interceptor'
-import { IFullUser, IUser } from '@/utils/types/user.types'
+import { IFullUser, IUser } from '@/types/user.types'
 
 const USERS = 'users'
 
@@ -45,9 +45,9 @@ export const UserService = {
       data,
     })
   },
-  async toggleFavorite(productId: number) {
+  async toggleFavorite(playlistId: number) {
     return instance<IUser>({
-      url: `${USERS}/profile/favorites/${productId}`,
+      url: `${USERS}/profile/favorites/${playlistId}`,
       method: 'PATCH',
     })
   },

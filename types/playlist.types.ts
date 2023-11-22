@@ -11,3 +11,8 @@ export interface IPlaylist {
   userId: number
   user: IUser
 }
+export interface IFavorite {
+  id: number
+  createdAt: string
+  playlist: IPlaylist
+}

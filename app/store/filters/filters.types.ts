@@ -1,11 +1,11 @@
-//import { TypeProductDataFilters } from '@/services/product/product.types'
-type TypeProductDataFilters = {}
+import { TypeSearchDataFilters } from '@/services/search/search,types'
+
 export interface IFilterState {
   isFilterUpdated: boolean
-  queryParams: TypeProductDataFilters
+  queryParams: TypeSearchDataFilters
 }
 
 export interface iFilterActiontsPayload {
-  key: keyof TypeProductDataFilters
+  key: keyof TypeSearchDataFilters
   value: string
 }

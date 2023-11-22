@@ -1,27 +1,25 @@
 'use client'
-import { useAuth } from '@/hooks/useAuth'
 import { useIsAdminPanel } from '@/hooks/useIsAdminPanel'
-import { PlaylistService } from '@/services/playlist/playlist.service'
-import { IPlaylist } from '@/utils/types/playlist.types'
-import { useQuery } from '@tanstack/react-query'
+import { useProfile } from '@/hooks/useProfile'
+import { IFavorite, IPlaylist } from '@/types/playlist.types'
+import { IFullUser } from '@/types/user.types'
 import Image from 'next/image'
-import Link from 'next/link'
+import { FC } from 'react'
 import { AiOutlinePlus } from 'react-icons/ai'
 import { BiSolidPlaylist } from 'react-icons/bi'
 import { GoHomeFill } from 'react-icons/go'
 import { IoSearchOutline } from 'react-icons/io5'
+import LikedPlaylist from './LikedPlaylist'
 import NavLink from './NavLink'
 import styles from './Navbar.module.scss'
 
-const Navbar = () => {
-  const { isAdminPanel } = useIsAdminPanel()
-  const { user } = useAuth()
+interface FavoritesPage {
+  user?: IFullUser
+}
 
-  const { data: playlists } = useQuery({
-    queryKey: ['playlist'],
-    queryFn: () => PlaylistService.getAll(),
-    select: ({ data }) => data,
-  })
+const Navbar: FC<FavoritesPage> = ({ user }) => {
+  const { isAdminPanel } = useIsAdminPanel()
+  const { profile } = useProfile()
 
   return (
     <div className={styles.navbar}>
@@ -32,7 +30,7 @@ const Navbar = () => {
         </div>
         <div>
           <NavLink href="/" icon={GoHomeFill} text="Главная" />
-          <NavLink href="/dashboard" icon={IoSearchOutline} text="Поиск" />
+          <NavLink href="/search" icon={IoSearchOutline} text="Поиск" />
         </div>
       </div>
       <div className="h-full overflow-scroll w-full bg-primary rounded-xl px-2 mt-2">
@@ -48,29 +46,13 @@ const Navbar = () => {
           </button>
         </div> */}
         <div className="flex flex-col gap-2">
-          {playlists &&
-            playlists.map((playlist: IPlaylist) => (
-              <Link
-                key={playlist.id}
-                href={`/playlist/${playlist.slug}`}
-                className="hover:bg-[#232323] p-2 rounded-lg transition-colors"
-              >
-                <div className="flex gap-2">
-                  <Image
-                    src={playlist.image}
-                    alt="image"
-                    width={55}
-                    height={55}
-                    className="rounded-lg"
-                  />
-                  <div>
-                    <p>{playlist.name}</p>
-                    <span className="text-sm text-slate-300">
-                      {playlist.user && playlist.user.name}
-                    </span>
-                  </div>
-                </div>
-              </Link>
+          {profile &&
+            profile.favorites &&
+            profile.favorites.map((favorites: IFavorite) => (
+              <LikedPlaylist
+                key={favorites.playlist.id}
+                playlist={favorites.playlist as IPlaylist}
+              />
             ))}
         </div>
       </div>

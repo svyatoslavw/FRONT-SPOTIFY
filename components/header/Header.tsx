@@ -1,24 +1,40 @@
+'use client'
 import NavButtons from '@/components/nav-buttons/NavButtons'
 import MenuProfile from '@/components/profile-menu/MenuProfile'
 import { useAuth } from '@/hooks/useAuth'
 import { useOutside } from '@/hooks/useOutside'
+import { useProfile } from '@/hooks/useProfile'
 import Image from 'next/image'
 import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 import { FC, useState } from 'react'
+import Search from '../ui/search/Search'
 
 const Header: FC = () => {
   const { user } = useAuth()
+  const { profile } = useProfile()
   const [isOpenMenu, setIsOpenMenu] = useState(false)
   const { ref, isShow, setIsShow } = useOutside(false)
+  const pathname = usePathname()
   return (
     <div className="h-[70px] w-full flex bg-transparent justify-between px-5 items-center">
-      <NavButtons />
+      {pathname.includes('search') ? (
+        <div className="flex gap-5">
+          <NavButtons />
+          <Search />
+        </div>
+      ) : (
+        <NavButtons />
+      )}
+
       <div className="flex gap-6 items-center">
-        <Link href={'/'} style={{ color: 'gray', fontWeight: 700 }}>
-          <span className="hover:text-grayLight duration-200 py-1 px-4 rounded-2xl bg-primary">
-            Premium
-          </span>
-        </Link>
+        {profile && !profile.premium && (
+          <Link href={'/'} style={{ color: 'gray', fontWeight: 700 }}>
+            <span className="hover:text-grayLight duration-200 py-1 px-4 rounded-2xl bg-primary">
+              Premium
+            </span>
+          </Link>
+        )}
 
         {!user ? (
           <>

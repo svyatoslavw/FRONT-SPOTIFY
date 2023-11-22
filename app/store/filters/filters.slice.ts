@@ -6,8 +6,8 @@ const initialState: IFilterState = {
   queryParams: {
     searchTerm: '',
     //sort: EnumProductSort.NEWEST,
-    page: 1,
-    perPage: 9,
+    // page: 1,
+    // perPage: 9,
   },
 }
 
@@ -17,7 +17,7 @@ export const filtersSlice = createSlice({
   reducers: {
     updateQueryParam: (state, action: PayloadAction<iFilterActiontsPayload>) => {
       const { key, value } = action.payload
-      //state.queryParams[key] = value
+      state.queryParams[key] = value
       state.isFilterUpdated = true
     },
     resetFilterUpdate: (state) => {

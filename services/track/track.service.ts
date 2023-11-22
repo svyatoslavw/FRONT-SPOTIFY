@@ -1,5 +1,5 @@
 import { instance } from '@/api/api.interceptor'
-import { ITrack } from '@/utils/types/track.types'
+import { ITrack } from '@/types/track.types'
 
 const TRACKS = 'tracks'
 
@@ -14,6 +14,13 @@ export const TrackService = {
   async getAll() {
     return instance<ITrack[]>({
       url: TRACKS,
+      method: 'GET',
+    })
+  },
+
+  async getHome() {
+    return instance<ITrack[]>({
+      url: `${TRACKS}/home`,
       method: 'GET',
     })
   },
