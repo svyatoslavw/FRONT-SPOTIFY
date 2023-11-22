@@ -28,7 +28,7 @@ const Header: FC = () => {
       )}
 
       <div className="flex gap-6 items-center">
-        {profile && !profile.premium && (
+        {profile && !profile.isPremium && (
           <Link href={'/'} style={{ color: 'gray', fontWeight: 700 }}>
             <span className="hover:text-grayLight duration-200 py-1 px-4 rounded-2xl bg-primary">
               Premium

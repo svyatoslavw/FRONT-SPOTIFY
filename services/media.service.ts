@@ -7,7 +7,7 @@ export interface IMediaResponce {
 
 export const MediaService = {
   async upload(media: FormData) {
-    return instance.post<string[]>('/media', media, {
+    return instance.post<string>('/media', media, {
       headers: { 'Content-Type': 'multipart/form-data' },
     })
   },

@@ -38,7 +38,9 @@ export default function RootLayout({ children }: PropsWithChildren<unknown>) {
               <AuthProvider>
                 <ToasterProvider />
                 <div>
-                  {pathname.includes('auth') || pathname.includes('account') ? (
+                  {pathname.includes('auth') ||
+                  pathname.includes('account') ||
+                  pathname.includes('admin') ? (
                     <div>{children}</div>
                   ) : (
                     <div className="grid overflow-hidden grid-cols-[0fr,1fr] grid-rows-1 gap-x-0 gap-y-0">

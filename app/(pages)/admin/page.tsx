@@ -1,7 +1,5 @@
-type Props = {}
+import DashboardPage from '@/components/screens/dashboard/DashboardPage'
 
-const Admin = (props: Props) => {
-  return <div>Admin</div>
+export default function Admin() {
+  return <DashboardPage />
 }
-
-export default Admin

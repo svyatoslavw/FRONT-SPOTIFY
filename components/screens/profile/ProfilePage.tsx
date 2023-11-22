@@ -2,15 +2,17 @@
 import MenuProfileSmall from '@/components/profile-menu/MenuProfileSmall'
 import Field from '@/components/ui/input/Field'
 import Loader from '@/components/ui/loader/Loader'
+import UploadField from '@/components/ui/upload-field/UploadField'
 import { useOutside } from '@/hooks/useOutside'
 import { useProfile } from '@/hooks/useProfile'
+import { IMediaResponce } from '@/services/media.service'
 import { UserService } from '@/services/user.service'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { FC, useState } from 'react'
-import { SubmitHandler, useForm } from 'react-hook-form'
+import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
 import { BiLogoSpotify, BiSolidLockOpenAlt } from 'react-icons/bi'
 import { FaMountainCity } from 'react-icons/fa6'
@@ -22,6 +24,7 @@ import styles from './ProfilePage.module.scss'
 export interface IUserFields {
   email: string
   name: string
+  image: string
 }
 
 const ProfilePage: FC = () => {
@@ -65,7 +68,7 @@ const ProfilePage: FC = () => {
     mutationKey: ['update profile'],
     mutationFn: (data: IUserFields) => UserService.updateProfile(data),
     onSuccess(data) {
-      queryClient.refetchQueries({ queryKey: ['get profile'] })
+      queryClient.refetchQueries({ queryKey: ['profile'] })
     },
   })
   const [isDropdownOpen, setIsDropdownOpen] = useState(false)
@@ -77,21 +80,23 @@ const ProfilePage: FC = () => {
   const onSubmit: SubmitHandler<IUserFields> = (data) => {
     mutate(data)
     reset()
-    push('/')
+    if (isSuccess) toast.success('Profile successfully updated!')
+    if (isError) toast.error('Something happened. Please try again!')
   }
 
   if (!profile) return
 
-  if (isSuccess) toast.success('Successfully toasted!')
-  if (isError) toast.error('Something happened. Please try again!')
   return (
     <>
       <div className="bg-gradient-custom flex flex-col items-center justify-center py-4 gap-8 overflow-hidden overflow-y-hidden">
         <div className="w-[1150px] flex justify-between items-center">
-          <div className="flex gap-1 items-center text-2xl font-semibold">
+          <Link
+            href={'/'}
+            className="flex gap-1 cursor-pointer items-center text-2xl font-semibold"
+          >
             <BiLogoSpotify size={50} />
             Spotify
-          </div>
+          </Link>
           <div className="flex gap-7 items-center">
             <Link href={'/'} style={{ color: 'white', fontWeight: 700 }}>
               <span className="hover:text-green-500 text-sm duration-200">Premium</span>
@@ -195,7 +200,20 @@ const ProfilePage: FC = () => {
             readOnly
           />
           <h6 className="text-xs">Докладніше про те, як змінити країну чи регіон.</h6>
-
+          <Controller
+            control={control}
+            name="image"
+            defaultValue={profile.image}
+            render={({ field: { onChange, value } }) => (
+              <UploadField
+                onChange={(value: IMediaResponce) => {
+                  onChange(value.url)
+                }}
+                value={value}
+                defaultValue={profile.image}
+              />
+            )}
+          />
           <div className="bg-gray h-[1px] w-full my-8"></div>
 
           <div className="w-full flex justify-end pb-20">

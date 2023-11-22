@@ -16,7 +16,7 @@ const OverviewPage: FC = () => {
 
   return (
     <div className="bg-gradient-custom flex flex-col items-center justify-center py-10 gap-6 overflow-hidden overflow-y-hidden">
-      {profile.premium ? (
+      {profile.isPremium ? (
         <ProfilePremium />
       ) : (
         <div className=" bg-[#232323] w-[600px] px-4 py-2 rounded-lg">

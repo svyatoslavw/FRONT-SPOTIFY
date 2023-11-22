@@ -12,12 +12,8 @@ const ProfilePremium: FC = () => {
         <BiLogoSpotify size={30} color="#15b37f" />
       </div>
 
-      <h1 className="font-semibold text-emerald-500  text-3xl pb-8">
-        {profile.premium && profile.premium.name}
-      </h1>
-      <p className=" py-2 text-sm text-slate-300">
-        Вы участник подписки {profile.premium && profile.premium.name}
-      </p>
+      <h1 className="font-semibold text-emerald-500  text-3xl pb-8">Premium</h1>
+      <p className=" py-2 text-sm text-slate-300">Вы участник подписки Premium</p>
     </div>
   )
 }

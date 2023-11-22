@@ -10,3 +10,136 @@
 input[type='text']:read-only {
   cursor: not-allowed;
 }
+
+nav ul,
+nav li {
+  margin: 0;
+  padding: 0;
+  outline: 0;
+}
+.fa-2x {
+  font-size: 2em;
+}
+nav .fa {
+  position: relative;
+  display: table-cell;
+  width: 100px;
+  height: 36px;
+  text-align: center;
+  vertical-align: middle;
+  font-size: 25px;
+  transition: all 0.3s ease-in-out;
+}
+
+.ment:hover,
+nav.ment.expanded {
+  width: 310px;
+  overflow: visible;
+  transition: all 0.07s ease-in-out;
+}
+
+.ment {
+  background: rgb(41, 38, 34);
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  height: 100%;
+  left: 0;
+  width: 60px;
+  overflow: hidden;
+  -webkit-transition: width 0.05s linear;
+  transition: width 0.3s linear;
+  -webkit-transform: translateZ(0) scale(1, 1);
+  z-index: 9009;
+}
+
+.ment > ul {
+  margin: 7px 0;
+}
+
+.ment li {
+  position: relative;
+
+  width: 310px;
+}
+
+.ment li > a {
+  position: relative;
+  display: table;
+  border-collapse: collapse;
+  border-spacing: 0;
+  color: #ff6e00;
+  font-family: arial;
+  font-size: 14px;
+  text-decoration: none;
+  -webkit-transform: translateZ(0) scale(1, 1);
+  -webkit-transition: all 0.1s linear;
+  transition: all 0.1s linear;
+}
+
+.ment .nav-icon {
+  position: relative;
+  display: table-cell;
+  width: 60px;
+  height: 36px;
+  text-align: center;
+  vertical-align: middle;
+  font-size: 18px;
+}
+
+.ment .nav-text {
+  position: relative;
+  display: table-cell;
+  vertical-align: middle;
+  width: 355px;
+  padding-right: 10px;
+}
+
+.ment > ul.logout {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+}
+
+.no-touch .scrollable.hover {
+  overflow-y: hidden;
+}
+
+.no-touch .scrollable.hover:hover {
+  overflow-y: auto;
+  overflow: visible;
+}
+
+.ment nav {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+}
+
+.ment li:hover > a,
+nav.ment li.active > a,
+.dropdown-menu > li > a:hover,
+.dropdown-menu > li > a:focus,
+.dropdown-menu > .active > a,
+.dropdown-menu > .active > a:hover,
+.dropdown-menu > .active > a:focus,
+.no-touch .dashboard-page nav.dashboard-menu ul li:hover a,
+.dashboard-page nav.dashboard-menu ul li.active a {
+  color: #fff;
+  background-color: #e2aa0b;
+  background: #e2aa0b;
+  background: -webkit-linear-gradient(135deg, #e2aa0b 30%, #ff6104 100%);
+  background: linear-gradient(135deg, #e2aa0b 30%, #ff6104 100%);
+}
+#content {
+  background-color: rgba(51, 51, 51, 0.08);
+  background: url(http://slovomarket.ru/wp-content/themes/dt-the7/images/backgrounds/patterns/full/poly.png);
+  background-size: cover;
+  text-align: center;
+  color: #ff6e00;
+  padding: 200px 0;
+  text-transform: uppercase;
+  font-family: 'Roboto Slab', Helvetica, Arial, Verdana, sans-serif;
+}
