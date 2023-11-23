@@ -78,10 +78,13 @@ const ProfilePage: FC = () => {
   }
 
   const onSubmit: SubmitHandler<IUserFields> = (data) => {
-    mutate(data)
-    reset()
-    if (isSuccess) toast.success('Profile successfully updated!')
-    if (isError) toast.error('Something happened. Please try again!')
+    try {
+      mutate(data)
+      toast.success('Profile successfully updated!')
+    } catch (error) {
+      toast.error('Something happened. Please try again!')
+    }
+    push('/account/overview')
   }
 
   if (!profile) return

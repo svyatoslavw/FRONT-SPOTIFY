@@ -1,29 +1,28 @@
 'use client'
 import Header from '@/components/header/Header'
-import Button from '@/components/ui/button/Button'
+import Search from '@/components/ui/search/Search'
+import { useFilter } from '@/hooks/useFilters'
 import usePlay from '@/hooks/usePlay'
 import { useProfile } from '@/hooks/useProfile'
-import { useTypedSelector } from '@/hooks/useTypedSelector'
-import { UserService } from '@/services/user.service'
+import { ISearchData } from '@/services/search/search,types'
+import { SearchService } from '@/services/search/search.service'
 import { IPlaylist } from '@/types/playlist.types'
 import { ITrack } from '@/types/track.types'
-import { useMutation, useQueryClient } from '@tanstack/react-query'
-import clsx from 'clsx'
+import { useQuery } from '@tanstack/react-query'
 import { average } from 'color.js'
-import Image from 'next/image'
 import { FC, useEffect, useState } from 'react'
-import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai'
-import { BsFillPauseFill, BsFillPlayFill } from 'react-icons/bs'
-import { FaPlay } from 'react-icons/fa'
+import PlaylistButtons from './PlaylistButtons'
+import PlaylistItem from './PlaylistItem'
 import PlaylistHeader from './playlist-header/PlaylistHeader'
+import PlaylistSearchPage from './playlist-search/PlaylistSearchPage'
 
 interface ISlugPage {
   playlist: IPlaylist
+  initialTracks: ISearchData
 }
 
-const PlaylistSlugPage: FC<ISlugPage> = ({ playlist }) => {
+const PlaylistSlugPage: FC<ISlugPage> = ({ playlist, initialTracks }) => {
   const [color, setColor] = useState<string>('')
-  const { activeId } = useTypedSelector((state) => state.player)
 
   useEffect(() => {
     if (playlist) {
@@ -36,28 +35,29 @@ const PlaylistSlugPage: FC<ISlugPage> = ({ playlist }) => {
         })
     }
   }, [playlist])
+
   const [isHovered, setIsHovered] = useState<number | null>(null)
   const onPlay = usePlay(playlist.tracks)
-
   const openHover = (index: number) => setIsHovered(index)
   const closeHover = () => setIsHovered(null)
 
   const { profile } = useProfile()
-  const queryClient = useQueryClient()
 
-  const { mutate } = useMutation({
-    mutationKey: ['favorite'],
-    mutationFn: () => UserService.toggleFavorite(playlist.id),
-    onSuccess() {
-      queryClient.invalidateQueries({ queryKey: ['profile'] })
-    },
+  const { isFilterUpdated, queryParams } = useFilter()
+
+  const { data, isFetching } = useQuery({
+    queryKey: ['playlist search', queryParams],
+    queryFn: () => SearchService.getAll(queryParams),
+    initialData: initialTracks,
+    enabled: isFilterUpdated,
   })
 
-  if (!profile) return null
+  if (!profile) return
+  const profileId = profile.id
   const isFavorite =
     profile.favorites && profile.favorites.some((favorite) => favorite.playlist.id === +playlist.id)
   return (
-    <div className="overflow-scroll ml-0 h-[100vh] m-2 bg-gradient-custom rounded-xl">
+    <div className="ml-0 h-[98vh] overflow-y-auto m-2 bg-gradient-custom rounded-xl">
       <div
         style={{
           background: `linear-gradient(to bottom, rgba(${color}, 1), rgba(${color}, 0.05))`,
@@ -69,66 +69,30 @@ const PlaylistSlugPage: FC<ISlugPage> = ({ playlist }) => {
       </div>
 
       <div className="w-full">
-        <div className="flex items-center gap-5 py-4 px-10">
-          <Button onClick={() => onPlay(playlist.id)} className={'hover:scale-125'}>
-            <div className="bg-green-500 p-3.5 flex items-center justify-center rounded-full">
-              <FaPlay size={16} />
-            </div>
-          </Button>
-          <Button
-            onClick={() => {
-              mutate()
-            }}
-            className={''}
-          >
-            {isFavorite ? (
-              <AiFillHeart color="#1ed760" size={38} />
-            ) : (
-              <AiOutlineHeart color="gray" size={38} />
-            )}
-          </Button>
-        </div>
+        <PlaylistButtons profileId={profileId} isFavorite={isFavorite} playlist={playlist} />
         <div className="px-10">
-          {playlist &&
+          {playlist && playlist.tracks.length ? (
             playlist.tracks.map((track: ITrack, index) => (
-              <div
-                key={track.id}
-                onMouseEnter={() => openHover(index)}
-                onMouseLeave={closeHover}
-                className={clsx(
-                  'flex gap-2 items-center p-2 my-2 rounded-md hover:bg-[#2a2a2a]  transition-all',
-                )}
-              >
-                <p
-                  onClick={() => onPlay(track.id)}
-                  className={clsx('text-sm w-5 flex items-center justify-center')}
-                >
-                  {isHovered === index ? (
-                    activeId === track.id ? (
-                      <BsFillPauseFill size={20} />
-                    ) : (
-                      <BsFillPlayFill size={20} />
-                    )
-                  ) : (
-                    index + 1
-                  )}
-                </p>
-                <Image src={track.image} alt="image" width={40} height={40} />
-                <div>
-                  <p
-                    className={clsx('text-sm cursor-pointer hover:underline', {
-                      'text-sm cursor-pointer text-green-500 hover:underline':
-                        activeId === track.id,
-                    })}
-                  >
-                    {track.name}
-                  </p>
-                  <p className="text-sm text-slate-300 cursor-pointer hover:underline">
-                    {track.artist && track.artist.name}
-                  </p>
-                </div>
-              </div>
-            ))}
+              <PlaylistItem
+                openHover={() => openHover(index)}
+                closeHover={closeHover}
+                track={track}
+                onPlay={() => onPlay(track.id)}
+                index={index}
+                isHovered={isHovered}
+              />
+            ))
+          ) : (
+            <div>
+              <div className="bg-gray/30 h-[2px] w-full my-8"></div>
+              <Search size="bg" />
+              <PlaylistSearchPage
+                albums={data.albums || []}
+                tracks={data.tracks || []}
+                isLoading={isFetching}
+              />
+            </div>
+          )}
         </div>
       </div>
     </div>

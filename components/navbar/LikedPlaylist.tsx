@@ -17,7 +17,7 @@ const LikedPlaylist: FC<{ playlist?: IPlaylist }> = ({ playlist }) => {
       <div className="flex gap-2 ">
         <Image src={playlist.image} alt="image" width={45} height={45} className="rounded-lg" />
         <div>
-          <p className="text-sm">{playlist.name}</p>
+          <p className="text-sm truncate w-1/2">{playlist.name}</p>
           <span className="text-xs text-slate-300">{playlist.user && playlist.user.name}</span>
         </div>
       </div>

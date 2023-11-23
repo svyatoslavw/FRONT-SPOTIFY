@@ -24,13 +24,10 @@ const SearchPage: FC<IPage> = ({ initialTracks }) => {
     <div className="m-2 ml-0 h-[98vh] bg-gradient-custom overflow-y-auto rounded-xl">
       <Header />
       <div className="px-3 h-full mb-28">
-        {queryParams.searchTerm ? `Seacrh by query ${queryParams.searchTerm}` : ''}
-        <CatalogPage
-          albums={data.albums || []}
-          tracks={data.tracks || []}
-          queryParams={queryParams}
-          isLoading={isFetching}
-        />
+        {queryParams.searchTerm &&
+          queryParams.searchTerm.length &&
+          `Seacrh by query ${queryParams.searchTerm}`}
+        <CatalogPage albums={data.albums || []} tracks={data.tracks || []} isLoading={isFetching} />
       </div>
     </div>
   )

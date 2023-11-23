@@ -30,4 +30,16 @@ export const PlaylistService = {
       method: 'GET',
     })
   },
+  async create(userId: number) {
+    return instance<IPlaylist>({
+      url: PLAYLISTS,
+      method: 'POST',
+    })
+  },
+  async delete(userId: number, playlistId: number) {
+    return instance<IPlaylist>({
+      url: `${PLAYLISTS}/${playlistId}`,
+      method: 'DELETE',
+    })
+  },
 }

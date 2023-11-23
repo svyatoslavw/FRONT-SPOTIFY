@@ -1,7 +1,7 @@
 'use client'
 
 import { TrackService } from '@/services/track/track.service'
-import { ITrack } from '@/utils/types/track.types'
+import { ITrack } from '@/types/track.types'
 import { useQuery } from '@tanstack/react-query'
 import { useState } from 'react'
 
@@ -17,6 +17,7 @@ const useTrackUrl = (track: ITrack) => {
       }
     },
     enabled: !!track,
+    retry: false,
   })
 
   return trackUrl

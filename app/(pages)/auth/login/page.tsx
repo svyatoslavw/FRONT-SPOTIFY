@@ -1,4 +1,3 @@
-'use client'
 import LoginPage from '@/components/screens/login/Login'
 import { Metadata } from 'next'
 

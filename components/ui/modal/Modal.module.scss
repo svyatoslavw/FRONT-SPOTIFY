@@ -22,21 +22,21 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  color: #2c3e50;
-  background: #f0f0f0;
+  color: #ffffff;
   position: absolute;
   right: 0;
   top: 0;
   align-self: flex-end;
+  @apply bg-neutral-400/5;
 }
 
 .closeBtn:hover {
+  color: #ffffff;
   transition: all 0.2s ease-in-out;
-  background-color: #e2e2e2;
+  background-color: #505050;
 }
 
 .window {
-  background-color: #fff;
   padding: 20px;
   border-radius: 20px;
   width: 100%;
@@ -44,7 +44,7 @@
   animation-name: slideIn;
   animation-duration: 0.3s;
   position: relative;
-  @apply h-auto py-10 my-auto;
+  @apply h-auto py-10 my-auto bg-[#282828];
   > button {
     position: absolute;
     top: 20px;

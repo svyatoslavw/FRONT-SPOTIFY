@@ -14,7 +14,7 @@ const PlaylistHeader: FC<{ playlist: IPlaylist }> = ({ playlist }) => {
       />
       <div>
         <p className="text-sm my-3">Плейлист</p>
-        <p className="text-8xl tracking-tighter font-black">{playlist.name}</p>
+        <p className="text-8xl truncate w-2/3 py-2 tracking-tighter font-black">{playlist.name}</p>
       </div>
     </div>
   )

@@ -1,11 +1,14 @@
 'use client'
 import { useIsAdminPanel } from '@/hooks/useIsAdminPanel'
 import { useProfile } from '@/hooks/useProfile'
+import { PlaylistService } from '@/services/playlist/playlist.service'
 import { IFavorite, IPlaylist } from '@/types/playlist.types'
 import { IFullUser } from '@/types/user.types'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 import Image from 'next/image'
 import Link from 'next/link'
-import { FC } from 'react'
+import { FC, useState } from 'react'
+import toast from 'react-hot-toast'
 import { AiOutlinePlus } from 'react-icons/ai'
 import { BiSolidPlaylist } from 'react-icons/bi'
 import { GoHomeFill } from 'react-icons/go'
@@ -21,6 +24,26 @@ interface FavoritesPage {
 const Navbar: FC<FavoritesPage> = ({ user }) => {
   const { isAdminPanel } = useIsAdminPanel()
   const { profile } = useProfile()
+  const [isOpen, setIsOpen] = useState(false)
+
+  const queryClient = useQueryClient()
+
+  const { mutate, isSuccess, isError } = useMutation({
+    mutationKey: ['create playlist'],
+    mutationFn: () => PlaylistService.create(profile.id),
+    onSuccess(data) {
+      queryClient.refetchQueries({ queryKey: ['profile'] })
+    },
+  })
+
+  const createButton = () => {
+    try {
+      mutate()
+      toast.success('Playlist created!')
+    } catch (error) {
+      toast.error('Something happened. Please try again!')
+    }
+  }
 
   return (
     <div className={styles.navbar}>
@@ -40,6 +63,7 @@ const Navbar: FC<FavoritesPage> = ({ user }) => {
           <AiOutlinePlus
             className="hover:rotate-45 hover:text-red-600 duration-200"
             size={25}
+            onClick={createButton}
             color="gray"
           />
         </div>
@@ -61,6 +85,11 @@ const Navbar: FC<FavoritesPage> = ({ user }) => {
             ))}
         </div>
       </div>
+      {/* {isOpen && (
+        <Modal isOpen={isOpen} closeModal={() => setIsOpen(false)}>
+          <CreatePlaylist />
+        </Modal>
+      )} */}
     </div>
   )
 }

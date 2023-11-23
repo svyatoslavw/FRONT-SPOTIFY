@@ -83,9 +83,9 @@ const Player: FC<TrackProps> = ({ activeId, track, trackUrl }) => {
       {track ? (
         <div className="flex gap-2 w-52 items-center p-2 my-2 rounded-md hover:bg-[#2a2a2a]  transition-all">
           <Image src={track.image} alt="image" width={40} height={40} />
-          <div>
-            <p className="text-sm cursor-pointer hover:underline">{track.name}</p>
-            <p className="text-sm text-slate-300 cursor-pointer hover:underline">
+          <div className="w-full">
+            <p className="text-sm w-32 truncate cursor-pointer hover:underline">{track.name}</p>
+            <p className="text-sm truncate text-slate-300 cursor-pointer hover:underline">
               {track.artist && track.artist.name}
             </p>
           </div>

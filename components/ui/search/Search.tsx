@@ -1,17 +1,18 @@
 import { useActions } from '@/hooks/useActions'
+import clsx from 'clsx'
 import { useRouter } from 'next/navigation'
 import { FC, useState } from 'react'
 
-import { ImCross, ImSearch } from 'react-icons/im'
+import { ImSearch } from 'react-icons/im'
 
-const Search: FC = () => {
+const Search: FC<{ size?: string }> = ({ size }) => {
   const [searchTerm, setSearchTerm] = useState<string>('')
   const { push } = useRouter()
   const { resetFilterUpdate, updateQueryParam } = useActions()
 
   const handleSearch = () => {
     if (searchTerm.trim() === '') {
-      resetFilterUpdate()
+      updateQueryParam({ key: 'searchTerm', value: '' })
     } else {
       push(`/search`)
       updateQueryParam({ key: 'searchTerm', value: searchTerm })
@@ -22,28 +23,27 @@ const Search: FC = () => {
     setSearchTerm(newSearchTerm)
 
     if (newSearchTerm.trim() === '') {
+      updateQueryParam({ key: 'searchTerm', value: '' })
       resetFilterUpdate()
     } else {
       updateQueryParam({ key: 'searchTerm', value: newSearchTerm })
     }
   }
 
-  const handleClear = () => {
-    setSearchTerm('')
-    updateQueryParam({ key: 'searchTerm', value: '' })
-    resetFilterUpdate()
-  }
-
   return (
-    <div>
+    <>
+      {size === 'bg' && (
+        <h1 className="text-lg font-semibold pl-1 mb-3">Let's add something to the playlist</h1>
+      )}
       <div
-        className="grid w-full rounded-3xl overflow-hidden"
-        style={{ gridTemplateColumns: '0.15fr 1fr 0.1fr' }}
+        className={clsx('flex w-full h-8', {
+          ['flex w-full h-[48px]']: size === 'bg',
+        })}
       >
         <button
           onClick={handleSearch}
           className={
-            'bg-[#242424] hover:bg-gray-200 border-none cursor-pointer transition-colors duration-300 text-white flex items-center justify-center'
+            'bg-[#242424] px-3 rounded-s-2xl hover:bg-gray/50 border-none cursor-pointer transition-colors duration-300 text-white flex items-center justify-center'
           }
         >
           <span>
@@ -53,21 +53,18 @@ const Search: FC = () => {
         <input
           value={searchTerm}
           onChange={handlChange}
-          className="bg-[#242424]  w-64  border-none text-xs px-4 text-white outline-none"
+          className={clsx(
+            'bg-[#242424] w-64 h-8 rounded-e-2xl border-none text-xs px-4 text-white outline-none',
+            {
+              ['bg-[#242424] h-[48px] w-1/3 rounded-e-2xl border-none text-[1rem] px-4 text-white outline-none']:
+                size === 'bg',
+            },
+          )}
           placeholder="Search..."
           onKeyDown={(e) => (e.key === 'Enter' ? handleSearch() : null)}
         />
-
-        <button
-          onClick={handleClear}
-          className="bg-[#242424] border-none cursor-pointer text-white hover:bg-red-600 hover:bg-opacity-40 transition-colors duration-300 hover:text-white flex  items-center justify-center p-2.5" // Стили для кнопки сброса
-        >
-          <span>
-            <ImCross size={12} className="font-bold opacity-40 text-black" />
-          </span>
-        </button>
       </div>
-    </div>
+    </>
   )
 }
 
