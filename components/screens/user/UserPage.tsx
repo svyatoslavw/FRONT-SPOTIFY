@@ -23,7 +23,7 @@ const UserPage: FC = () => {
   }, [profile])
 
   return (
-    <div className="m-2 ml-0 h-[98.2%] bg-gradient-custom rounded-xl">
+    <div>
       <div
         style={{
           background: `linear-gradient(to bottom, rgba(${color}, 1), rgba(${color}, 0.05))`,

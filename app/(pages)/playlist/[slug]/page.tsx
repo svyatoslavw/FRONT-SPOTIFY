@@ -1,3 +1,4 @@
+import Layout from '@/app/page-layout'
 import PlaylistSlugPage from '@/components/screens/playlist/PlaylistSlugPage'
 import { PlaylistService } from '@/services/playlist/playlist.service'
 import { TypeSearchDataFilters } from '@/services/search/search,types'
@@ -43,5 +44,9 @@ export default async function PlaylistSlug({ params, searchParams }: IPagePlayli
   const playlist = await getPlaylist(params)
   const data = await getTracks(searchParams)
 
-  return <PlaylistSlugPage playlist={playlist} initialTracks={data} />
+  return (
+    <Layout>
+      <PlaylistSlugPage playlist={playlist} initialTracks={data} />
+    </Layout>
+  )
 }

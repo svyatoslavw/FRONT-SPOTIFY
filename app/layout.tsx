@@ -44,7 +44,7 @@ export default function RootLayout({ children }: PropsWithChildren<unknown>) {
                   ) : (
                     <div className="grid overflow-hidden grid-cols-[0fr,1fr] grid-rows-1 gap-x-0 gap-y-0">
                       <Navbar />
-                      <div>{children}</div>
+                      <div className="p-2 pl-0">{children}</div>
                       <PlayerWrapper />
                     </div>
                   )}

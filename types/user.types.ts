@@ -1,4 +1,5 @@
 import { IFavorite } from './playlist.types'
+import { IPremium } from './premium.types'
 import { ITrack } from './track.types'
 
 export interface IUser {
@@ -10,7 +11,8 @@ export interface IUser {
   login: string
   country: string
   role: EnumUserRoles
-  isPremium: boolean
+  //isPremium: boolean
+  premium: IPremium
   tracks: ITrack[]
 }
 

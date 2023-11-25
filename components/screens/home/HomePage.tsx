@@ -17,10 +17,12 @@ interface IHomePage {
 const HomePage: FC<IHomePage> = ({ tracks, playlists }) => {
   const play = usePlay(tracks)
   return (
-    <div className="m-2 ml-0 h-[98vh] overflow-y-auto bg-gradient-custom rounded-xl">
+    <div>
       <Header />
       <div className="px-3 h-full mb-28">
-        <h1 className="text-2xl font-semibold pb-2">Рекомендованные подборки</h1>
+        {tracks.length !== 0 && (
+          <h1 className="text-2xl font-semibold pb-2">Рекомендованные подборки</h1>
+        )}
         <div className="grid  grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-8 gap-4 mt-4">
           {tracks &&
             tracks.map((track) => (
@@ -49,7 +51,7 @@ const HomePage: FC<IHomePage> = ({ tracks, playlists }) => {
               </div>
             ))}
         </div>
-        <h1 className="text-2xl font-semibold pb-2">Плейлисты</h1>
+        {playlists.length !== 0 && <h1 className="text-2xl font-semibold pb-2">Плейлисты</h1>}
         <div className="grid  grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-8 gap-4 mt-4">
           {playlists &&
             playlists.map((playlist) => (

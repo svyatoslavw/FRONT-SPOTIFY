@@ -67,22 +67,24 @@ const Navbar: FC<FavoritesPage> = ({ user }) => {
             color="gray"
           />
         </div>
-        {/* <div className="bg-[#242424] w-full h-36 rounded-xl px-5 py-3 text-white">
-          <p className="py-1 font-semibold">Создай свой первый плейлист</p>
-          <p className="py-1 text-sm">Это совсем не сложно! Мы поможем.</p>
-          <button className="py-1.5 px-3 mt-4 rounded-3xl text-sm text-center font-semibold bg-white text-black hover:scale-105 duration-200">
-            Создать плейлист
-          </button>
-        </div> */}
+        {/*  */}
         <div className="flex flex-col gap-2">
-          {profile &&
-            profile.favorites &&
+          {profile && profile.favorites.length ? (
             profile.favorites.map((favorites: IFavorite) => (
               <LikedPlaylist
                 key={favorites.playlist.id}
                 playlist={favorites.playlist as IPlaylist}
               />
-            ))}
+            ))
+          ) : (
+            <div className="bg-[#242424] w-full h-36 rounded-xl px-5 py-3 text-white">
+              <p className="py-1 font-semibold">Создай свой первый плейлист</p>
+              <p className="py-1 text-sm">Это совсем не сложно! Мы поможем.</p>
+              <button className="py-1.5 px-3 mt-4 rounded-3xl text-sm text-center font-semibold bg-white text-black hover:scale-105 duration-200">
+                Создать плейлист
+              </button>
+            </div>
+          )}
         </div>
       </div>
       {/* {isOpen && (

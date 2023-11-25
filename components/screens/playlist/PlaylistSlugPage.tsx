@@ -57,7 +57,7 @@ const PlaylistSlugPage: FC<ISlugPage> = ({ playlist, initialTracks }) => {
   const isFavorite =
     profile.favorites && profile.favorites.some((favorite) => favorite.playlist.id === +playlist.id)
   return (
-    <div className="ml-0 h-[98vh] overflow-y-auto m-2 bg-gradient-custom rounded-xl">
+    <div>
       <div
         style={{
           background: `linear-gradient(to bottom, rgba(${color}, 1), rgba(${color}, 0.05))`,

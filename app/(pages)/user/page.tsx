@@ -1,3 +1,4 @@
+import Layout from '@/app/page-layout'
 import UserPage from '@/components/screens/user/UserPage'
 import { Metadata } from 'next'
 
@@ -7,5 +8,9 @@ export const metadata: Metadata = {
 }
 
 export default function User() {
-  return <UserPage />
+  return (
+    <Layout>
+      <UserPage />
+    </Layout>
+  )
 }

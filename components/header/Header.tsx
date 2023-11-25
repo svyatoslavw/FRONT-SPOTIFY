@@ -28,9 +28,9 @@ const Header: FC = () => {
       )}
 
       <div className="flex gap-6 items-center">
-        {profile && !profile.isPremium && (
-          <Link href={'/'} style={{ color: 'gray', fontWeight: 700 }}>
-            <span className="hover:text-grayLight duration-200 py-1 px-4 rounded-2xl bg-primary">
+        {profile && !profile.premium && (
+          <Link href={'/premium'} style={{ color: 'gray', fontWeight: 700 }}>
+            <span className="hover:text-emerald-500 duration-200 py-1 px-4 rounded-2xl bg-primary">
               Premium
             </span>
           </Link>
@@ -52,7 +52,7 @@ const Header: FC = () => {
         ) : (
           <Image
             src={user.image}
-            className="text-sm font-semibold rounded-full"
+            className="text-sm font-semibold border-2 border-opacity-30 border-white rounded-full"
             width={35}
             height={35}
             alt="/"

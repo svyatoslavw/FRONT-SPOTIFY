@@ -21,7 +21,7 @@ const SearchPage: FC<IPage> = ({ initialTracks }) => {
     enabled: isFilterUpdated,
   })
   return (
-    <div className="m-2 ml-0 h-[98vh] bg-gradient-custom overflow-y-auto rounded-xl">
+    <div className="">
       <Header />
       <div className="px-3 h-full mb-28">
         {queryParams.searchTerm &&

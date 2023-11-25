@@ -2,6 +2,7 @@ import HomePage from '@/components/screens/home/HomePage'
 import { PlaylistService } from '@/services/playlist/playlist.service'
 import { TrackService } from '@/services/track/track.service'
 import { Metadata } from 'next'
+import Layout from '../page-layout'
 
 export const metadata: Metadata = {
   title: 'Spotify - Web Player',
@@ -22,5 +23,9 @@ async function getPlaylists() {
 export default async function Home() {
   const tracks = await getTracks()
   const playlists = await getPlaylists()
-  return <HomePage tracks={tracks} playlists={playlists} />
+  return (
+    <Layout>
+      <HomePage tracks={tracks} playlists={playlists} />
+    </Layout>
+  )
 }

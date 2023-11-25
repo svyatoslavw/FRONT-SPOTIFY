@@ -14,7 +14,9 @@ const MenuProfile: FC = () => {
         <MenuItem icon={true} href="/" text="Справка" />
         <MenuItem icon={true} href="/" text="Скачать" />
         <MenuItem icon={true} href="/" text="Настройки" />
-        {profile.isPremium && <MenuItem icon={true} href="/admin" text="Панель управления" />}
+        {profile.isPremium && (
+          <MenuItem icon={true} href="/admin/dashboard" text="Панель управления" />
+        )}
         <div className="bg-gray h-[1px] w-full"></div>
         <button className="flex text-white w-full text-[12px] hover:bg-[#3e3e3e] py-2.5 px-3 justify-between cursor-pointer duration-150">
           <span>Выйти</span>
