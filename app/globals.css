@@ -10,7 +10,7 @@
 input[type='text']:read-only {
   cursor: not-allowed;
 }
-
+/* 
 nav ul,
 nav li {
   margin: 0;
@@ -140,4 +140,4 @@ nav.ment li.active > a,
   padding: 200px 0;
   text-transform: uppercase;
   font-family: 'Roboto Slab', Helvetica, Arial, Verdana, sans-serif;
-}
+} */

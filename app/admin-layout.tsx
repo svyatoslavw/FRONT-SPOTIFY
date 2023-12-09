@@ -1,4 +1,4 @@
-import AdminNavbar from '@/components/navbar/AdminNavbar'
+import AdminNavbar from '@/components/navbar/navbar-links/AdminNavbar'
 import { PropsWithChildren } from 'react'
 
 export default function AdminLayout({ children }: PropsWithChildren<unknown>) {

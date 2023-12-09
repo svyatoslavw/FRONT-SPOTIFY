@@ -26,7 +26,11 @@ const Field = forwardRef<HTMLInputElement, IField>(
             )}
           />
         </label>
-        {error && <div className="text-primary">{error}</div>}
+        {error ? (
+          <div className="text-green-500 text-sm">{error}</div>
+        ) : (
+          <div className="h-5"></div>
+        )}
       </div>
     )
   },

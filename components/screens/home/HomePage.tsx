@@ -1,24 +1,43 @@
 'use client'
-
+import { Query } from '@/__generated__/ggl/graphql'
+import { GET_ALL_USERS } from '@/api/graphql/queries/GetAllUsers'
 import PlayButton from '@/components/play-button/PlayButton'
 import usePlay from '@/hooks/usePlay'
 import { IPlaylist } from '@/types/playlist.types'
 import { ITrack } from '@/types/track.types'
+import { useQuery } from '@apollo/client'
 import Image from 'next/image'
 import Link from 'next/link'
 import { FC } from 'react'
 import Header from '../../header/Header'
-
 interface IHomePage {
   tracks: ITrack[]
   playlists: IPlaylist[]
+  data: any
 }
 
 const HomePage: FC<IHomePage> = ({ tracks, playlists }) => {
   const play = usePlay(tracks)
+  const { data, loading } = useQuery<Query>(GET_ALL_USERS, {})
+  //const {user} = userStore((state) => state)
   return (
     <div>
       <Header />
+
+      <span></span>
+      <span>
+        {loading ? (
+          <h1>Loading..</h1>
+        ) : (
+          data &&
+          data.getAllUsers &&
+          data.getAllUsers.map((item) => (
+            <h3 key={item.id}>
+              {item.email} {item.name}
+            </h3>
+          ))
+        )}
+      </span>
       <div className="px-3 h-full mb-28">
         {tracks.length !== 0 && (
           <h1 className="text-2xl font-semibold pb-2">Рекомендованные подборки</h1>

@@ -1,4 +1,5 @@
 import { IAuthResponse, ITokens } from '@/app/store/user/user.interface'
+import { saveUserToStore } from '@/app/stores/userStore'
 import Cookies from 'js-cookie'
 
 export const getAccessToken = () => {
@@ -29,5 +30,6 @@ export const removeFromStorage = () => {
 
 export const saveToStorage = (data: IAuthResponse) => {
   saveTokensStorage(data)
-  localStorage.setItem('user', JSON.stringify(data.user))
+  saveUserToStore(data.user)
+  //localStorage.setItem('user', JSON.stringify(data.user))
 }

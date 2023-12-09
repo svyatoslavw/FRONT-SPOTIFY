@@ -1,4 +1,5 @@
-import { EnumUserRoles, IUser } from '@/types/user.types'
+import { User } from '@/__generated__/ggl/graphql'
+import { EnumUserRoles } from '@/types/user.types'
 
 export interface IUserState {
   id: number
@@ -30,5 +31,5 @@ export interface ILogin {
 }
 
 export interface IAuthResponse extends ITokens {
-  user: IUser
+  user: User
 }

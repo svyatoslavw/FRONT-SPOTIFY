@@ -1,6 +1,8 @@
 'use client'
+import { client } from '@/api/apollo.interceptor'
 import Navbar from '@/components/navbar/Navbar'
-import PlayerWrapper from '@/components/player/PlayerWrapper'
+import { ApolloProvider } from '@apollo/client'
+import { loadDevMessages, loadErrorMessages } from '@apollo/client/dev'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { Inter } from 'next/font/google'
 import { usePathname } from 'next/navigation'
@@ -28,31 +30,36 @@ const queryClient = new QueryClient({
 })
 export default function RootLayout({ children }: PropsWithChildren<unknown>) {
   const pathname = usePathname()
+
+  loadDevMessages()
+  loadErrorMessages()
   return (
     <html lang="en">
       <body className={inter.className}>
-        <QueryClientProvider client={queryClient}>
-          <Provider store={store}>
-            <PersistGate persistor={persistor} loading={null}>
-              <AuthProvider>
-                <ToasterProvider />
-                <div>
-                  {pathname.includes('auth') ||
-                  pathname.includes('account') ||
-                  pathname.includes('admin') ? (
-                    <div>{children}</div>
-                  ) : (
-                    <div className="grid overflow-hidden grid-cols-[0fr,1fr] grid-rows-1 gap-x-0 gap-y-0">
-                      <Navbar />
-                      <div className="p-2 pl-0">{children}</div>
-                      <PlayerWrapper />
-                    </div>
-                  )}
-                </div>
-              </AuthProvider>
-            </PersistGate>
-          </Provider>
-        </QueryClientProvider>
+        <ApolloProvider client={client}>
+          <QueryClientProvider client={queryClient}>
+            <Provider store={store}>
+              <PersistGate persistor={persistor} loading={null}>
+                <AuthProvider>
+                  <ToasterProvider />
+                  <div>
+                    {pathname.includes('auth') ||
+                    pathname.includes('account') ||
+                    pathname.includes('admin') ? (
+                      <div>{children}</div>
+                    ) : (
+                      <div className="grid overflow-hidden grid-cols-[0fr,1fr] grid-rows-1 gap-x-0 gap-y-0">
+                        <Navbar />
+                        <div className="p-2 pl-0">{children}</div>
+                        {/* <PlayerWrapper /> */}
+                      </div>
+                    )}
+                  </div>
+                </AuthProvider>
+              </PersistGate>
+            </Provider>
+          </QueryClientProvider>
+        </ApolloProvider>
         <div id="modal"></div>
       </body>
     </html>

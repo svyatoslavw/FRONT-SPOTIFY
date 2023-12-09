@@ -2,7 +2,7 @@
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { FC } from 'react'
-import styles from './Navbar.module.scss'
+import styles from '../Navbar.module.scss'
 import { INavLink } from './nav-link.interface'
 
 const AdminNavLink: FC<INavLink> = ({ href, icon: Icon, text }) => {
@@ -14,7 +14,7 @@ const AdminNavLink: FC<INavLink> = ({ href, icon: Icon, text }) => {
       rel="preload"
       href={href}
       className={styles.linkAdmin}
-      style={isCurrentPath ? { color: '#22c55e' } : undefined}
+      style={isCurrentPath ? { color: '#' } : undefined}
     >
       {isCurrentPath && <span className="absolute -ml-3 h-7 w-1 bg-green-500"></span>}
       <span>

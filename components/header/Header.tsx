@@ -12,7 +12,7 @@ import Search from '../ui/search/Search'
 
 const Header: FC = () => {
   const { user } = useAuth()
-  const { profile } = useProfile()
+  const { profile, error, loading } = useProfile()
   const [isOpenMenu, setIsOpenMenu] = useState(false)
   const { ref, isShow, setIsShow } = useOutside(false)
   const pathname = usePathname()
@@ -51,7 +51,7 @@ const Header: FC = () => {
           </>
         ) : (
           <Image
-            src={user.image}
+            src={!loading && profile.image}
             className="text-sm font-semibold border-2 border-opacity-30 border-white rounded-full"
             width={35}
             height={35}

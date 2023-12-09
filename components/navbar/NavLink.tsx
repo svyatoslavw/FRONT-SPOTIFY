@@ -3,7 +3,7 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { FC } from 'react'
 import styles from './Navbar.module.scss'
-import { INavLink } from './nav-link.interface'
+import { INavLink } from './navbar-links/nav-link.interface'
 
 const NavLink: FC<INavLink> = ({ href, icon: Icon, text }) => {
   const pathname = usePathname()

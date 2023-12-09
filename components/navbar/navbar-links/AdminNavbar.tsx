@@ -10,8 +10,8 @@ import {
   MdOutlinePlaylistAddCheckCircle,
   MdSupervisedUserCircle,
 } from 'react-icons/md'
+import styles from '../Navbar.module.scss'
 import AdminNavLink from './AdminNavLink'
-import styles from './Navbar.module.scss'
 
 const AdminNavbar: FC = () => {
   return (

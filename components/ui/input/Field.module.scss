@@ -1,5 +1,5 @@
 .field {
-  @apply px-4 rounded-md py-3 focus:outline-none text-sm border-gray bg-[#1e1e1e] w-full my-2 border transition focus:border-white;
+  @apply px-4 rounded-md py-3 focus:outline-none text-sm border-gray bg-[#1e1e1e] w-full my-1 border transition focus:border-white;
 }
 .icon {
   @apply absolute z-[1] -mt-4 text-sm justify-center flex items-center ml-2 px-2;

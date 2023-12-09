@@ -1,6 +1,4 @@
 import HomePage from '@/components/screens/home/HomePage'
-import { PlaylistService } from '@/services/playlist/playlist.service'
-import { TrackService } from '@/services/track/track.service'
 import { Metadata } from 'next'
 import Layout from '../page-layout'
 
@@ -9,23 +7,25 @@ export const metadata: Metadata = {
   description: 'Spotify home page',
 }
 
-async function getTracks() {
-  const data = await TrackService.getHome()
+// async function getTracks() {
+//   const data = await TrackService.getHome()
 
-  return data.data
-}
+//   return data.data
+// }
 
-async function getPlaylists() {
-  const data = await PlaylistService.getAll()
+// async function getPlaylists() {
+//   const data = await PlaylistService.getAll()
 
-  return data.data
-}
+//   return data.data
+// }
 export default async function Home() {
-  const tracks = await getTracks()
-  const playlists = await getPlaylists()
+  //const tracks = await getTracks()
+  //const playlists = await getPlaylists()
+  //const { data, loading } = useQuery(GET_ALL_USERS, {})
+
   return (
     <Layout>
-      <HomePage tracks={tracks} playlists={playlists} />
+      <HomePage data={[]} tracks={[]} playlists={[]} />
     </Layout>
   )
 }

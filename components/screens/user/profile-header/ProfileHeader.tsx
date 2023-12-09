@@ -17,7 +17,7 @@ const ProfileHeader: FC<{ profile: IUser }> = ({ profile }) => {
           <div className="flex my-2 items-center justify-between">
             <p className="text-sm">Профиль</p>
             {profile.premium && (
-              <span className="text-xs bg-[#22c55e] px-2 py-1 text-black rounded-full">
+              <span className="text-xs bg-secondary px-2 py-1 text-black rounded-full">
                 Premium
               </span>
             )}
@@ -26,10 +26,10 @@ const ProfileHeader: FC<{ profile: IUser }> = ({ profile }) => {
         </div>
       </div>
       <div className="px-16 flex gap-8">
-        <button className="text-center px-5 w-32 text-white/50 rounded-full py-1 bg-[#22c55e]/30">
+        <button className="text-center px-5 w-32 text-white rounded-full py-1 bg-secondary/50 hover:bg-secondary transition">
           add track
         </button>
-        <button className="text-center px-5 w-32 text-white/50 rounded-full py-1  bg-[#22c55e]/30">
+        <button className="text-center px-5 w-32 text-white rounded-full py-1 bg-secondary/50 hover:bg-secondary transition">
           add album
         </button>
       </div>

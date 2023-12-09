@@ -1,3 +1,6 @@
-import { useTypedSelector } from './useTypedSelector'
+import { userStore } from '@/app/stores/userStore'
+import { useStore } from 'zustand'
 
-export const useAuth = () => useTypedSelector((state) => state.user)
+export const useAuth = () => {
+  return useStore(userStore)
+}

@@ -24,7 +24,7 @@
 }
 
 .customBtn {
-  @apply px-14 py-2 text-black bg-secondary text-sm hover:bg-opacity-70 cursor-pointer duration-300;
+  @apply px-14 py-2 text-black bg-secondary text-sm hover:bg-secondary/70 cursor-pointer duration-300;
 }
 .resetBtn {
   @apply border-none capitalize text-sm underline hover:text-green-500 duration-300 cursor-pointer;

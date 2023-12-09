@@ -2,7 +2,6 @@
 import { ILogin } from '@/app/store/user/user.interface'
 import Button from '@/components/ui/button/Button'
 import Field from '@/components/ui/input/Field'
-import { useActions } from '@/hooks/useActions'
 import { useAuth } from '@/hooks/useAuth'
 import { useAuthRedirect } from '@/hooks/useAuthRedirect'
 import clsx from 'clsx'
@@ -12,15 +11,21 @@ import { SubmitHandler, useForm } from 'react-hook-form'
 import { BiSolidLockOpenAlt } from 'react-icons/bi'
 import { HiOutlineMail } from 'react-icons/hi'
 
+import { LOGIN_USER } from '@/api/graphql/mutations/Login'
 import GoogleAuth from '@/components/auth-buttons/GoogleAuth'
+import { saveToStorage } from '@/services/auth/auth.helper'
+import { useMutation } from '@apollo/client'
+import toast from 'react-hot-toast'
 import '../../../app/globals.css'
 import styles from './Auth.module.scss'
 const LoginPage: FC = () => {
   useAuthRedirect()
 
-  const { isLoading } = useAuth()
+  const { user } = useAuth()
 
-  const { login, register } = useActions()
+  const [loginUser, { data, loading }] = useMutation(LOGIN_USER, {
+    onCompleted: (data) => {},
+  })
 
   const {
     register: formRegister,
@@ -32,9 +37,22 @@ const LoginPage: FC = () => {
     mode: 'onChange',
   })
 
-  const onSubmit: SubmitHandler<ILogin> = (data) => {
-    login(data)
-    reset()
+  const onSubmit: SubmitHandler<ILogin> = async (data) => {
+    try {
+      const result = await loginUser({
+        variables: {
+          email: data.email,
+          password: data.password,
+        },
+      })
+
+      saveToStorage(result.data.login)
+      console.log(result.data.login)
+
+      reset()
+    } catch (error: any) {
+      toast.error(`${error.message}`)
+    }
   }
 
   return (
@@ -53,8 +71,8 @@ const LoginPage: FC = () => {
               },
             })}
             placeholder="Email"
-            error={errors.email?.message}
             className="w-full"
+            error={errors.email?.message}
           />
 
           <Field
@@ -67,8 +85,8 @@ const LoginPage: FC = () => {
               },
             })}
             placeholder="Password"
-            error={errors.password?.message}
             className="w-full"
+            error={errors.password?.message}
           />
 
           <Button className={styles.customBtn}>Ввойти</Button>
