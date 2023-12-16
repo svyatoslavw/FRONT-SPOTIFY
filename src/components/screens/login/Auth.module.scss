@@ -1,0 +1,34 @@
+.login {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  overflow: hidden;
+  overflow-y: hidden;
+  @apply bg-gradient-custom;
+}
+.form {
+  @apply bg-black;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  row-gap: 20px;
+  width: 500px;
+  padding: 20px;
+  border-radius: 20px;
+}
+
+.type {
+  @apply text-3xl mb-2 font-bold text-center;
+}
+
+.customBtn {
+  @apply px-14 py-2 text-black text-sm cursor-pointer transition-all duration-500 bg-gradient-to-tl from-emerald-700 via-green-400 to-secondary bg-size-200 bg-pos-0 hover:bg-pos-100;
+  &:hover {
+    filter: drop-shadow(0 0 1em #207520);
+  }
+}
+.resetBtn {
+  @apply border-none capitalize text-sm underline hover:text-green-500 duration-300 cursor-pointer;
+}
