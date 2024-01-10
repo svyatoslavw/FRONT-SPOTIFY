@@ -6,6 +6,7 @@ export const GET_TRACK_BY_ID = gql`
       id
       file
       name
+      slug
       image
       artistId
       artist {

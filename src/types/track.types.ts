@@ -6,6 +6,7 @@ export interface ITrack {
   createdAt: string
   releaseDate: string
   name: string
+  slug: string
   file: string
   image: string
   artistId: number

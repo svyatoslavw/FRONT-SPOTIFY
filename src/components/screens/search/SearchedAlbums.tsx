@@ -1,5 +1,5 @@
 import { Album } from '@/__generated__/ggl/graphql'
-import PlayButton from '@/components/play-button/PlayButton'
+import PlayButton from '@/components/player/PlayButton'
 import Image from 'next/image'
 import { FC } from 'react'
 

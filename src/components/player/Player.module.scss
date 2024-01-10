@@ -1,0 +1,15 @@
+.player {
+  @apply h-20 w-full justify-between fixed bottom-0 flex items-center px-3 bg-gradient-to-t from-black via-zinc-950 to-zinc-950;
+  animation: slideInLeft 0.5s forwards;
+}
+
+@keyframes slideInLeft {
+  from {
+    transform: translateY(30%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}

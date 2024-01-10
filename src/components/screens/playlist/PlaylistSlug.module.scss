@@ -1,0 +1,50 @@
+.container {
+  @apply overflow-x-hidden overflow-y-auto;
+
+  &__header {
+    @apply rounded-t-lg rounded-r-lg;
+  }
+
+  &__divider {
+    @apply bg-gray/30 h-[2px] my-4;
+  }
+}
+
+.track {
+  @apply flex justify-between items-center p-2 pr-5 my-2 rounded-md hover:bg-graybackg transition-all;
+  &__main {
+    @apply flex gap-2 items-center;
+  }
+
+  &__btns {
+    @apply text-sm w-5 flex items-center justify-center;
+  }
+  &__text {
+    @apply text-sm cursor-pointer hover:underline;
+  }
+
+  &__textActive {
+    @apply text-sm cursor-pointer text-green-500 hover:underline;
+  }
+
+  &__artist {
+    @apply text-sm text-slate-300 cursor-pointer hover:underline;
+  }
+
+  &__icon {
+    @apply hover:scale-125 transition-all;
+  }
+}
+
+.search {
+  &__item {
+    @apply flex justify-between items-center p-2 pr-5 my-2 rounded-md hover:bg-graybackg transition-all;
+  }
+}
+
+.buttons {
+  @apply flex items-center gap-5 py-4 px-10;
+  &__icon {
+    @apply bg-green-500 p-3.5 flex items-center justify-center rounded-full;
+  }
+}

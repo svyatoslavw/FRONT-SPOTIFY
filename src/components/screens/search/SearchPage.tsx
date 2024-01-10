@@ -2,10 +2,11 @@
 import { GET_SEARCH_QUERY } from '@/api/graphql/queries/GetSearchQuery'
 import Header from '@/components/header/Header'
 import { useFilter } from '@/hooks/useFilters'
-import { ISearchData } from '@/services/search/search,types'
+import { ISearchData } from '@/types/search.types'
 import { useQuery } from '@apollo/client'
 import { FC } from 'react'
 import CatalogPage from './CatalogPage'
+import styles from './SearchPage.module.scss'
 
 interface IPage {
   initialTracks: ISearchData
@@ -22,19 +23,21 @@ const SearchPage: FC<IPage> = ({ initialTracks }) => {
     fetchPolicy: 'cache-and-network',
   })
   return (
-    <div className="">
+    <section className={styles.search}>
       <Header />
-      <div className="px-3 h-full mb-28">
-        {queryParams.searchTerm &&
-          queryParams.searchTerm.length &&
-          `Seacrh by query ${queryParams.searchTerm}`}
+      <div className={styles.search__container}>
+        {queryParams.searchTerm && queryParams.searchTerm.length && (
+          <span className={styles.search__heading}>
+            Search by query <span className={styles.search__term}>{queryParams.searchTerm}</span>
+          </span>
+        )}
         <CatalogPage
           albums={data?.getSearchQuery.albums || []}
           tracks={data?.getSearchQuery.tracks || []}
           isLoading={loading}
         />
       </div>
-    </div>
+    </section>
   )
 }
 

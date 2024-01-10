@@ -1,50 +1,73 @@
 'use client'
+import { useAuth } from '@/hooks/useAuth'
+import { EnumTokens } from '@/middleware'
+import { getNewTokens } from '@/services/auth/auth.helper'
+import { saveUserToStore } from '@/stores/userStore'
+import { getStoreLocal } from '@/utils/local-storage'
 import Cookies from 'js-cookie'
+import { usePathname } from 'next/navigation'
 import { FC, PropsWithChildren, useEffect } from 'react'
 
-import { useActions } from '@/hooks/useActions'
-import { useAuth } from '@/hooks/useAuth'
-import { usePathname, useRouter } from 'next/navigation'
-
-import { ADMIN_PANEL_URL } from '@/config/url.config'
-import { getAccessToken } from '@/services/auth/auth.helper'
-
-import NotFound from '@/app/(pages)/not-found'
-
-const protectedRoutes = ['/favorites']
-
 const AuthProvider: FC<PropsWithChildren<unknown>> = ({ children }) => {
-  const { user } = useAuth()
-  const { checkAuth, logout } = useActions()
+  // const { user, logout } = useAuth()
+  // const { checkAuth } = useAuthStore()
+  // //const { push } = useRouter()
 
+  // const pathname = usePathname()
+
+  // useEffect(() => {
+  //   const accessToken = getAccessToken()
+  //   if (accessToken) checkAuth()
+  // }, [])
+
+  // useEffect(() => {
+  //   const refreshToken = Cookies.get('refreshToken')
+
+  //   if (!refreshToken && user) logout()
+  // }, [pathname])
+
+  // const isAdminRoute = pathname.startsWith(ADMIN_PANEL_URL)
+
+  // if (!isAdminRoute) return <>{children}</>
+
+  // if ((user && user.role === 'ADMIN') || (user && user.role === 'DEVELOPER')) return <>{children}</>
+
+  // if (user && isAdminRoute) return <NotFound />
+
+  // //!pathname.includes('/auth') && push('/auth/login')
+
+  // return null
+
+  const { user } = useAuth()
   const pathname = usePathname()
 
   useEffect(() => {
-    const accessToken = getAccessToken()
-    if (accessToken) checkAuth()
-  }, [])
+    if (user) return
+
+    const userLS = getStoreLocal('user')
+    if (!userLS) return
+
+    saveUserToStore(user)
+  }, [user])
 
   useEffect(() => {
-    const refreshToken = Cookies.get('refreshToken')
+    if (!user) return
 
-    if (!refreshToken && user) logout()
-  }, [pathname])
+    const accessToken = Cookies.get(EnumTokens.ACCESS_TOKEN)
+    if (accessToken) return
 
-  const router = useRouter()
+    const mutate = async () => {
+      try {
+        await getNewTokens()
+      } catch (error) {
+        console.error(error)
+      }
+    }
 
-  const isProtectedRoute = protectedRoutes.some((route) => pathname?.startsWith(route))
-  const isAdminRoute = pathname?.startsWith(ADMIN_PANEL_URL)
+    mutate()
+  }, [user, pathname])
 
-  if (!isProtectedRoute && !isAdminRoute) return <>{children}</>
-
-  if (user?.role === 'ADMIN' || user?.role === 'DEVELOPER') return <>{children}</>
-
-  if (user && isProtectedRoute) return <>{children}</>
-
-  if (user && isAdminRoute) return <NotFound />
-
-  pathname !== '/auth' && router.replace('/auth')
-  return null
+  return children
 }
 
 export default AuthProvider

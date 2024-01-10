@@ -1,21 +1,23 @@
 'use client'
 import Field from '@/components/ui/input/Field'
+import { useProfile } from '@/hooks/useProfile'
+import { Divider } from '@nextui-org/react'
+
+import { UPDATE_PROFILE } from '@/api/graphql/mutations/UpdateProfile'
 import Loader from '@/components/ui/loader/Loader'
 import UploadField from '@/components/ui/upload-field/UploadField'
-import { useOutside } from '@/hooks/useOutside'
-import { useProfile } from '@/hooks/useProfile'
-import { IMediaResponce } from '@/services/media.service'
-import { UserService } from '@/services/user.service'
-import { Divider } from '@nextui-org/react'
-import { useMutation, useQueryClient } from '@tanstack/react-query'
-import { ChevronLeft, Flag, Lock, Mail, User } from 'lucide-react'
+import { useMutation } from '@apollo/client'
+import { Mail, User } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import { FC, useState } from 'react'
+import { FC } from 'react'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
 import OverviewMenu from '../overview/OverviewMenu'
+import ButtonBack from './ButtonBack'
+import CountrySelect from './CountrySelect'
+import styles from './ProfilePage.module.scss'
 
 export interface IUserFields {
   email: string
@@ -34,74 +36,49 @@ const ProfilePage: FC = () => {
     mode: 'onChange',
   })
 
-  const data = [
-    {
-      id: 1,
-      value: 'Мужчина',
-    },
-    {
-      id: 2,
-      value: 'Женщина',
-    },
-    {
-      id: 3,
-      value: 'Мужчина',
-    },
-    {
-      id: 4,
-      value: 'Женщина',
-    },
-  ]
-  const { ref, isShow, setIsShow } = useOutside(false)
-
   const { profile } = useProfile()
 
   const { push } = useRouter()
 
-  const queryClient = useQueryClient()
+  const [mutate, { loading, error }] = useMutation(UPDATE_PROFILE)
 
-  const { mutate, isSuccess, isPending, isError } = useMutation({
-    mutationKey: ['update profile'],
-    mutationFn: (data: IUserFields) => UserService.updateProfile(data),
-    onSuccess(data) {
-      queryClient.refetchQueries({ queryKey: ['profile'] })
-    },
-  })
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false)
+  const onSubmit: SubmitHandler<IUserFields> = async (data) => {
+    const { name, email, image } = data
+    console.log(data)
 
-  const toggleDropdown = () => {
-    setIsDropdownOpen(!isDropdownOpen)
-  }
-
-  const onSubmit: SubmitHandler<IUserFields> = (data) => {
+    const id = profile?.id
     try {
-      mutate(data)
+      await mutate({
+        variables: {
+          id,
+          dto: { name, email, image },
+        },
+      })
+
       toast.success('Profile successfully updated!')
+      push('/account/overview')
     } catch (error) {
       toast.error('Something happened. Please try again!')
+      console.log(error)
     }
-    push('/account/overview')
   }
 
   if (!profile) return
 
   return (
     <>
-      <div className="bg-gradient-custom flex flex-col items-center justify-center py-4 gap-8 overflow-hidden overflow-y-hidden">
-        <div className="w-[1150px] flex justify-between items-center">
-          <Link
-            href={'/'}
-            className="flex gap-1 cursor-pointer items-center text-2xl font-semibold"
-          >
+      <div className={styles.profile}>
+        <div className={styles.profile__header}>
+          <Link href={'/'} className={styles.profile__logo}>
             <Image src={'/logo.png'} width={34} height={34} alt="logo" />
             Spotify
           </Link>
           <div className="flex gap-7 items-center">
             <Link href={'/'} style={{ color: 'white', fontWeight: 700 }}>
-              <span className="hover:text-green-500 text-sm duration-200">Premium</span>
+              <span className={styles.profile__link}>Premium</span>
             </Link>
             <Link href={'/'} style={{ color: 'white', fontWeight: 700 }}>
-              <span className="hover:text-green-500 text-sm duration-200">Поддержка</span>
+              <span className={styles.profile__link}>Поддержка</span>
             </Link>
 
             <Divider orientation="vertical" className="h-6" />
@@ -109,84 +86,43 @@ const ProfilePage: FC = () => {
           </div>
         </div>
         <form className="w-[800px] p-2 rounded-lg" onSubmit={handleSubmit(onSubmit)}>
-          <Link
-            href={'overview'}
-            className="p-2 flex bg-[#333333] rounded-full hover:scale-105 duration-200 w-[47px] hover:bg-[#262626]"
-          >
-            <ChevronLeft size={30} color="white" />
-          </Link>
-          <h1 className="font-semibold text-4xl py-3 mt-10 mb-6">Редактирование профиля</h1>
-          <div className="text-sm font-semibold mb-12">
-            Имя пользователя <p className="text-xs font-normal">{profile && profile.login}</p>
+          <ButtonBack />
+          <h1 className={styles.profile__heading}>Редактирование профиля</h1>
+          <div className={styles.profile__login}>
+            Имя пользователя <p>{profile && profile.login}</p>
           </div>
           <Field
-            {...formRegister('email', { required: 'email is required' })}
-            className="w-full my-8"
-            placeholder="Адрес элестронной почты"
+            {...formRegister('email', {
+              required: 'email is required',
+              pattern: {
+                value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                message: 'invalid email address',
+              },
+            })}
+            className={styles.profile__field}
+            error={errors.email?.message}
+            placeholder="Email address"
             Icon={Mail}
             defaultValue={profile.email}
             readOnly
           />
           <Field
             {...formRegister('name', { required: 'email is required' })}
-            className="w-full my-8"
-            placeholder="Имя профиля"
+            className={styles.profile__field}
+            placeholder="Profile name"
             Icon={User}
             defaultValue={profile.name}
           />
-          <Field className="w-full my-8" Icon={Lock} placeholder="Пароль" readOnly />
-          {/* <Field className="w-full my-8" Icon={PiGenderIntersexBold} placeholder="Пол" readOnly /> */}
-          {/* <Field
-          {...formRegister('name', { required: 'name is required' })}
-          className="w-full my-8"
-          Icon={BsFillPersonFill}
-          defaultValue={profile?.name}
-          placeholder="Имя"
-        />
-        <Field className="w-full my-8" Icon={BsFillPersonLinesFill} placeholder="Login" /> */}
-          {/* <Controller
-          control={control}
-          rules={{
-            required: 'email is required',
-          }}
-          name="email"
-          render={({ field }) => (
-            <div className="flex w-full ">
-              <div
-                className="flex items-center justify-between px-4 w-full rounded-md py-3 bg-[#1e1e1e] focus:outline-none text-sm cursor-pointer border-gray border transition focus:border-white"
-                onClick={toggleDropdown}
-              >
-                <span>Select a card</span>
-                <IoMdArrowDropdown />
-              </div>
-              {isDropdownOpen && (
-                <ul className={styles.dropdown}>
-                  {data.map((card) => (
-                    <li key={card.id}>{card.value}</li>
-                  ))}
-                </ul>
-              )}
-              <input type="hidden" {...field} />
-            </div>
-          )}
-        /> */}
+          <CountrySelect />
 
-          <Field
-            defaultValue={profile?.country}
-            className="w-full mt-8 mb-2"
-            Icon={Flag}
-            placeholder="Страна"
-            readOnly
-          />
-          <h6 className="text-xs">Докладніше про те, як змінити країну чи регіон.</h6>
           <Controller
             control={control}
             name="image"
             defaultValue={profile.image}
             render={({ field: { onChange, value } }) => (
               <UploadField
-                onChange={(value: IMediaResponce) => {
-                  onChange(value.url)
+                onChange={(value) => {
+                  onChange(value)
                 }}
                 value={value}
                 defaultValue={profile.image}
@@ -194,17 +130,12 @@ const ProfilePage: FC = () => {
             )}
           />
           <div className="bg-gray h-[1px] w-full my-8"></div>
-
-          <div className="w-full flex justify-end pb-20">
-            <button type="reset" className="py-3 px-5 font-semibold rounded-3xl text-[#9ba7a7]">
+          <div className={styles.buttons}>
+            <button type="reset" className={styles.buttons__cancel}>
               Отмена
             </button>
-            <button
-              type="submit"
-              className="bg-green-500 w-28 font-semibold rounded-3xl text-black"
-            >
-              {isPending ? <Loader size="sm" /> : 'Сохранить'}
-              {/* {isPending ? 'Сохранить' : <Loader size="sm" />} */}
+            <button type="submit" className={styles.buttons__submit}>
+              {loading ? <Loader size="sm" color="black" /> : 'Сохранить'}
             </button>
           </div>
         </form>

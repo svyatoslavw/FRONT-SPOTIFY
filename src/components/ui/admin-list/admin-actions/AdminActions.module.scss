@@ -1,0 +1,19 @@
+.actions {
+  @apply flex items-center gap-4;
+}
+
+.buttonStyle {
+  @apply border-none bg-transparent text-xl opacity-70
+    outline-none transition-opacity hover:opacity-100 cursor-pointer;
+}
+.view {
+  @apply p-1.5 bg-secondary/50 hover:bg-secondary rounded-md cursor-pointer hover:scale-125 transition-all;
+}
+
+.edit {
+  @apply p-1.5 bg-secondary/50 hover:bg-secondary rounded-md cursor-pointer hover:scale-125 transition-all;
+}
+
+.delete {
+  @apply p-1.5 bg-red-600/50 hover:bg-red-600 rounded-md cursor-pointer hover:scale-125 transition-all;
+}

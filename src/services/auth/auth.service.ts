@@ -1,71 +1,59 @@
-import { axiosClassic, instance } from '@/api/api.interceptor'
-import { IAuthResponse, ILogin, IRegister } from '@/store/user/user.interface'
-import axios from 'axios'
-import Cookies from 'js-cookie'
-import { saveToStorage } from './auth.helper'
+import { IUser } from '@/types/user.types'
 
-export const AuthService = {
-  async register(type: 'register', data: IRegister) {
-    const response = await instance<IAuthResponse>({
-      url: `/auth/${type}`,
+class AuthService {
+  async getNewTokens(
+    accessToken: string,
+  ): Promise<{ accessToken: string; refreshToken: string; user: IUser }> {
+    const query = `
+    mutation getNewTokens($refreshToken: String!) {
+      getNewTokens(refreshToken: $refreshToken) {
+        accessToken
+        refreshToken
+        user {
+          id
+          name
+          email
+          role
+        }
+      }
+    }`
+
+    return fetch(process.env.GRAPHQL_URL, {
       method: 'POST',
-      data,
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: accessToken ? `Bearer ${accessToken}` : '',
+      },
+      body: JSON.stringify({ query }),
     })
+      .then((response) => response.json())
+      .then(({ data }) => data.getNewTokens)
+      .catch((error) => {
+        throw error
+      })
+  }
 
-    if (response.data.accessToken) saveToStorage(response.data)
-    return response.data
-  },
+  async getProfileByToken(accessToken: string): Promise<IUser> {
+    const query = `
+    query {
+      getProfileByToken {
+        role
+      }
+    }`
 
-  async login(type: 'login', data: ILogin) {
-    const response = await instance<IAuthResponse>({
-      url: `/auth/${type}`,
+    return fetch(process.env.GRAPHQL_URL, {
       method: 'POST',
-      data,
-    })
-
-    if (response.data.accessToken) saveToStorage(response.data)
-    return response.data
-  },
-
-  async authGoogle() {
-    const response = await axiosClassic({
-      url: '/auth/google/login',
-      method: 'GET',
       headers: {
-        'Access-Control-Allow-Origin': true,
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${accessToken}`,
       },
+      body: JSON.stringify({ query }),
     })
-    if (response.data.accessToken) saveToStorage(response.data)
-    return response.data
-  },
-
-  async authGithub() {
-    const response = await axiosClassic({
-      url: '/auth/github/login',
-      method: 'GET',
-      headers: {
-        'Access-Control-Allow-Origin': true,
-      },
-    })
-    if (response.data.accessToken) saveToStorage(response.data)
-    return response.data
-  },
-
-  async getNewTokens() {
-    const refreshToken = Cookies.get('refreshToken')
-
-    const response = await axios.post<string, { data: IAuthResponse }>(
-      process.env.SERVER_URL + '/auth/login/access-token',
-      { refreshToken },
-      {
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      },
-    )
-
-    if (response.data.accessToken) saveToStorage(response.data)
-
-    return response
-  },
+      .then((response) => response.json())
+      .then(({ data }) => data.getProfileByToken)
+      .catch((error) => {
+        throw error
+      })
+  }
 }
+export default new AuthService()

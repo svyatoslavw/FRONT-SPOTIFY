@@ -1,11 +1,11 @@
 'use client'
+import Image from 'next/image'
 import Link from 'next/link'
-import { FaSpotify } from 'react-icons/fa'
 
 export default function NotFound() {
   return (
-    <div className="px-5 flex flex-col gap-3 w-full h-full justify-center items-center">
-      <FaSpotify color="#1ed760" size={80} className="py-2" />
+    <div className="px-5 flex flex-col py-5 gap-3 w-full h-full justify-center items-center">
+      <Image src={'/logo.png'} alt="logo" width={80} height={80} />
       <h1 className="text-4xl font-bold select-none">Страница не найдена</h1>
       <Link
         href="/"

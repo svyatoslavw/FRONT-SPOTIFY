@@ -1,0 +1,10 @@
+----------------TODO-----------------
+
+[] - overview page
+[] - change password
+[] - profile playlists
+[] - moderator dashboard
+[X] - create/delete playlist
+[] - create/delete/query/search album
+[] - premium page
+[] - add category front/back

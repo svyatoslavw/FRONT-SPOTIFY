@@ -1,33 +1,34 @@
-import { MediaService } from '@/services/media.service'
-import { useMutation } from '@tanstack/react-query'
+import { Mutation } from '@/__generated__/ggl/graphql'
+import { UPLOAD_MEDIA_FILE } from '@/api/graphql/mutations/UploadFile'
+import { useProfile } from '@/hooks/useProfile'
+import { useMutation } from '@apollo/client'
 import { ChangeEvent } from 'react'
-import toast from 'react-hot-toast'
 
-export const useUploadFile = (onChange: (...e: any) => void) => {
-  const { mutate } = useMutation({
-    mutationKey: ['upload file'],
-    mutationFn: (data: FormData) => MediaService.upload(data),
-    onSuccess({ data }) {
-      onChange(data)
-    },
-    onError(error: any) {
-      toast(error.message)
-    },
-  })
+export const useUploadFile = (onChange: (value: string) => void) => {
+  const { profile } = useProfile()
+  const [uploadFileMutation] = useMutation<Mutation>(UPLOAD_MEDIA_FILE)
 
   const uploadFile = async (e: ChangeEvent<HTMLInputElement>) => {
+    if (!profile) return null
     const files = e.target.files
     if (!files || files.length === 0) return
 
-    const formData = new FormData()
+    try {
+      const file = files[0]
+      const { data } = await uploadFileMutation({
+        variables: { file },
+        onCompleted: (data) => {
+          onChange(data.uploadMediaFile.url)
+        },
+      })
 
-    Array.from(files).forEach((file) => {
-      formData.append('media', file)
-    })
-
-    await mutate(formData)
+      if (onChange && data) {
+        onChange(data.uploadMediaFile.url)
+      }
+    } catch (error) {
+      console.error('Error uploading file:', error)
+    }
   }
-
   return {
     uploadFile,
   }

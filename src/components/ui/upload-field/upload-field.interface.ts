@@ -1,5 +1,6 @@
 export interface IUploadField {
-  onChange: (...e: any) => void
+  onChange: (value: string) => void
   value?: string
   defaultValue?: string
+  file?: boolean
 }

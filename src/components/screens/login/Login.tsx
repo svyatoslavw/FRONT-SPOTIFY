@@ -17,18 +17,20 @@ import { SubmitHandler, useForm } from 'react-hook-form'
 import { AuthDto, Mutation } from '@/__generated__/ggl/graphql'
 import { LOGIN_USER } from '@/api/graphql/mutations/Login'
 import GoogleAuth from '@/components/auth-buttons/GoogleAuth'
+import { PUBLIC_URL } from '@/config/url.config'
 import { saveToStorage } from '@/services/auth/auth.helper'
-import { ILogin } from '@/store/user/user.interface'
+import { ILogin } from '@/types/user.types'
 import { useMutation } from '@apollo/client'
 import { AtSign, Lock } from 'lucide-react'
+import { useRouter } from 'next/navigation'
 import toast from 'react-hot-toast'
-import '../../../app/globals.css'
 import styles from './Auth.module.scss'
+
 const LoginPage: FC = () => {
   useAuthRedirect()
 
   const { user } = useAuth()
-
+  const { replace } = useRouter()
   const [loginUser] = useMutation<Mutation>(LOGIN_USER, {
     onCompleted: (data) => {
       saveToStorage(data.login)
@@ -47,13 +49,14 @@ const LoginPage: FC = () => {
 
   const onSubmit: SubmitHandler<ILogin> = async (data: AuthDto) => {
     try {
-      const result = await loginUser({
+      await loginUser({
         variables: {
           email: data.email,
           password: data.password,
         },
       })
       reset()
+      replace(PUBLIC_URL.home())
     } catch (error: any) {
       toast.error(`${error.message}`)
     }
@@ -74,9 +77,9 @@ const LoginPage: FC = () => {
                 message: 'invalid email address',
               },
             })}
+            error={errors.email?.message}
             placeholder="Email"
             className="w-full"
-            error={errors.email?.message}
           />
 
           <Field
@@ -88,6 +91,7 @@ const LoginPage: FC = () => {
                 message: 'min 6 characters',
               },
             })}
+            type="password"
             placeholder="Password"
             className="w-full"
             error={errors.password?.message}

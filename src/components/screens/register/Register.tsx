@@ -4,17 +4,18 @@ import { REGISTER_USER } from '@/api/graphql/mutations/Register'
 import GoogleAuth from '@/components/auth-buttons/GoogleAuth'
 import Button from '@/components/ui/button/Button'
 import Field from '@/components/ui/input/Field'
+import { PUBLIC_URL } from '@/config/url.config'
 import { useAuthRedirect } from '@/hooks/useAuthRedirect'
 import { saveToStorage } from '@/services/auth/auth.helper'
-import { IRegister } from '@/store/user/user.interface'
+import { IRegister } from '@/types/user.types'
 import { useMutation } from '@apollo/client'
 import clsx from 'clsx'
 import { AtSign, Lock, User } from 'lucide-react'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 import { FC } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
-import '../../../app/globals.css'
 import styles from '../login/Auth.module.scss'
 
 // -------------------------------------------------
@@ -24,6 +25,7 @@ import styles from '../login/Auth.module.scss'
 
 const RegisterPage: FC = () => {
   useAuthRedirect()
+  const { replace } = useRouter()
 
   const [registerUser] = useMutation<Mutation>(REGISTER_USER, {
     onCompleted: (data) => {
@@ -52,6 +54,7 @@ const RegisterPage: FC = () => {
         },
       })
       reset()
+      replace(PUBLIC_URL.home())
     } catch (error: any) {
       toast.error(`${error.message}`)
     }

@@ -1,4 +1,5 @@
 import { UserRole } from '@/__generated__/ggl/graphql'
+import { removeFromStorage } from '@/services/auth/auth.helper'
 import { create } from 'zustand'
 import { devtools, persist } from 'zustand/middleware'
 
@@ -13,9 +14,10 @@ export interface IUserSubset {
 export interface IUserStore {
   user: IUserSubset | null
   setUser: (user: IUserSubset | null) => void
+  logout: () => void
 }
 
-export const userStore = create<IUserStore>()(
+export const useUserStore = create<IUserStore>()(
   devtools(
     persist(
       (set) => ({
@@ -24,13 +26,23 @@ export const userStore = create<IUserStore>()(
           set(() => ({
             user,
           })),
+        logout: () => {
+          set({
+            user: null,
+          }),
+            removeFromStorage()
+        },
       }),
       {
-        name: 'user-storage',
+        name: 'user',
       },
     ),
   ),
 )
+
+export const logout = () => {
+  useUserStore.setState({ user: null })
+}
 
 export const saveUserToStore = (user: IUserSubset | null) => {
   if (user) {
@@ -41,8 +53,8 @@ export const saveUserToStore = (user: IUserSubset | null) => {
       role: user.role,
       //image: user.image,
     }
-    userStore.setState({ user: updatedUser })
+    useUserStore.setState({ user: updatedUser })
   } else {
-    userStore.setState({ user: null })
+    useUserStore.setState({ user: null })
   }
 }

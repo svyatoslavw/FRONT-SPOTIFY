@@ -17,7 +17,7 @@ const VolumeBar: FC<SliderProps> = ({ onChange, value = 0.05 }) => {
       defaultValue={[0.05]}
       value={[value]}
       onValueChange={handler}
-      max={1}
+      max={0.5}
       step={0.05}
       aria-label="Volume"
     >

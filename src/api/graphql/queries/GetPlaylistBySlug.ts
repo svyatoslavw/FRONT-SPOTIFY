@@ -8,6 +8,7 @@ export const GET_PLAYLIST_BY_SLUG = gql`
       image
       tracks {
         name
+        slug
         image
         file
         id
@@ -16,7 +17,9 @@ export const GET_PLAYLIST_BY_SLUG = gql`
         }
       }
       name
+      userId
       user {
+        id
         name
       }
     }

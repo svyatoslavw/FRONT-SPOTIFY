@@ -1,12 +1,10 @@
 'use client'
-import { useActions } from '@/hooks/useActions'
-import { useTypedSelector } from '@/hooks/useTypedSelector'
+import usePlayer from '@/stores/playerStore'
+import { Pause, Play, SkipBack, SkipForward, Volume2, VolumeX } from 'lucide-react'
 import Image from 'next/image'
 import { FC, useEffect, useState } from 'react'
-import { HiPause, HiPlay } from 'react-icons/hi'
-import { HiOutlineSpeakerWave, HiOutlineSpeakerXMark } from 'react-icons/hi2'
-import { TbPlayerSkipBackFilled, TbPlayerSkipForwardFilled } from 'react-icons/tb'
 import useSound from 'use-sound'
+import styles from './Player.module.scss'
 import SeekBar from './SeekBar'
 import VolumeBar from './VolumeBar'
 
@@ -17,8 +15,7 @@ interface TrackProps {
 }
 
 const Player: FC<TrackProps> = ({ activeId, track, trackUrl }) => {
-  const { ids, volume, isPlaying } = useTypedSelector((state) => state.player)
-  const { setId, setVolume, setIsPlaying } = useActions()
+  const { setId, setVolume, setIsPlaying, volume, isPlaying, ids } = usePlayer()
   const [prevVolume, setPrevVolume] = useState<number>(1)
   const onPlayNext = () => {
     if (ids.length === 0 || activeId === undefined) return
@@ -93,10 +90,10 @@ const Player: FC<TrackProps> = ({ activeId, track, trackUrl }) => {
     }
   }
   return (
-    <div className="h-20 w-full justify-between fixed bottom-0 flex items-center px-3 bg-gradient-to-t from-black via-zinc-950 to-green-950">
+    <div className={styles.player}>
       {track ? (
         <div className="flex gap-2 w-72 items-center p-2 my-2 rounded-md ">
-          <Image src={track.image} alt="image" width={40} height={40} />
+          <Image src={track.image} alt="image" className="rounded-md" width={40} height={40} />
           <div className="w-full">
             <p className="text-sm w-64 truncate cursor-pointer hover:underline">{track.name}</p>
             <p className="text-sm truncate text-slate-300 cursor-pointer hover:underline">
@@ -115,23 +112,23 @@ const Player: FC<TrackProps> = ({ activeId, track, trackUrl }) => {
       )}
       <div className="flex flex-col  items-center justify-center gap-3">
         <div className="flex flex-col w-[350px]  items-center">
-          <div className="flex items-center gap-6">
-            <TbPlayerSkipBackFilled onClick={onPlayPrev} size={20} />
+          <div className="flex items-center gap-6 mb-1">
+            <SkipBack onClick={onPlayPrev} size={18} fill="white" />
             <span className="p-1 flex items-center rounded-full justify-center ">
               {isPlaying ? (
-                <HiPause onClick={handlePlay} color="white" size={40} />
+                <Pause onClick={handlePlay} color="white" fill="white" size={20} />
               ) : (
-                <HiPlay size={40} onClick={handlePlay} color="white" />
+                <Play size={20} onClick={handlePlay} color="white" fill="white" />
               )}
             </span>
-            <TbPlayerSkipForwardFilled onClick={onPlayNext} size={20} />
+            <SkipForward onClick={onPlayNext} fill="white" size={18} />
           </div>
           <SeekBar onSeek={onSeek} duration={duration || 0} />
         </div>
       </div>
       <div className="w-52 flex items-center gap-3">
         <div onChange={toggleMute} onClick={toggleMute}>
-          {volume === 0 ? <HiOutlineSpeakerXMark size={20} /> : <HiOutlineSpeakerWave size={20} />}
+          {volume === 0 ? <VolumeX size={20} fill="white" /> : <Volume2 size={20} fill="white" />}
         </div>
 
         <VolumeBar value={volume} onChange={(value) => setVolume(value)} />

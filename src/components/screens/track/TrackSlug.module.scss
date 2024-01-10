@@ -1,0 +1,24 @@
+.header {
+  @apply w-full 2xl:h-[240px] xl:h-[200px] flex gap-7 px-6 items-center;
+
+  &__image {
+    @apply text-sm font-semibold hover:scale-110 transition-all;
+  }
+  &__heading {
+    @apply flex flex-col w-[70%];
+  }
+  &__name {
+    @apply text-8xl truncate py-2 tracking-tighter font-black;
+  }
+}
+
+.container {
+  @apply overflow-x-hidden;
+}
+.btns {
+  @apply flex items-center gap-5 py-4 px-10;
+
+  &__play {
+    @apply bg-green-500 p-3.5 flex items-center justify-center rounded-full;
+  }
+}

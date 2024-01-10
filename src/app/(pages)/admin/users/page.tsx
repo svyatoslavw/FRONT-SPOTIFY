@@ -1,10 +1,10 @@
 import AdminLayout from '@/components/layouts/admin-layout'
-import DashboardPage from '@/components/screens/dashboard/DashboardPage'
+import AdminUsersPage from '@/components/screens/admin/users/AdminUsersPage'
 
 export default function AdminUsers() {
   return (
     <AdminLayout>
-      <DashboardPage />
+      <AdminUsersPage />
     </AdminLayout>
   )
 }

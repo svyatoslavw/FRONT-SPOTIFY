@@ -1,3 +1,16 @@
+.container {
+  @apply w-full h-[270px] flex gap-7 px-4 items-center;
+  &__image {
+    @apply text-sm font-semibold rounded-full;
+  }
+  &__heading {
+    @apply flex my-2 items-center justify-between;
+  }
+  &__name {
+    @apply text-8xl tracking-tighter font-black;
+  }
+}
+
 .customBtn {
   @apply text-center px-5 w-32 py-1 rounded-full bg-secondary/50 hover:bg-secondary/80 text-black text-sm cursor-pointer transition-all duration-500 bg-gradient-to-tl from-emerald-700 via-green-400 to-secondary/80 bg-size-200 bg-pos-0 hover:bg-pos-100;
   &:hover {

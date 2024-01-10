@@ -1,23 +1,22 @@
-import { useActions } from '@/hooks/useActions'
-import { useTypedSelector } from '@/hooks/useTypedSelector'
-import { TypeSearchDataFilters } from '@/services/search/search,types'
-import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { useEffect } from 'react'
+
+import useFilterStore from '@/stores/filterStore'
+import { TypeSearchDataFilters } from '@/types/search.types'
+import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 
 export const useFilter = () => {
   const pathname = usePathname()
   const searchParams = useSearchParams()
-  const { updateQueryParam } = useActions()
-  const { replace } = useRouter()
+  const { updateQueryParam, resetFilterUpdate } = useFilterStore()
 
-  const { queryParams, isFilterUpdated } = useTypedSelector((state) => state.filters)
+  const { queryParams, isFilterUpdated } = useFilterStore((state) => ({
+    queryParams: state.queryParams,
+    isFilterUpdated: state.isFilterUpdated,
+  }))
 
   useEffect(() => {
     searchParams.forEach((value, key) => {
-      updateQueryParam({
-        key: key as keyof TypeSearchDataFilters,
-        value,
-      })
+      updateQueryParam(key as keyof TypeSearchDataFilters, value)
     })
   }, [])
 
@@ -30,9 +29,13 @@ export const useFilter = () => {
       newParams.delete(key)
     }
 
-    replace(pathname + (newParams.toString() ? `?${newParams.toString()}` : ''))
-    updateQueryParam({ key, value })
+    resetFilterUpdate()
+    updateQueryParam(key, value)
+    const updatedQueryString = newParams.toString() ? `?${newParams.toString()}` : ''
+    replace(pathname + updatedQueryString)
   }
+
+  const { replace } = useRouter()
 
   return {
     updateQueryParams,

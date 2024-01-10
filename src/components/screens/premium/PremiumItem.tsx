@@ -1,10 +1,12 @@
 'use client'
+import { Mutation } from '@/__generated__/ggl/graphql'
+import { client } from '@/api/apollo.config'
+import { CREATE_PAYMENT } from '@/api/graphql/mutations/CreatePayment'
 import { IPremiumItems, IPremiumText } from '@/constants/premium.constant'
-import { PremiumService } from '@/services/premium.service'
 import { IFullUser } from '@/types/user.types'
-import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useRouter } from 'next/navigation'
 import { FC } from 'react'
+import toast from 'react-hot-toast'
 
 interface IPremiumItem {
   item: IPremiumItems
@@ -12,26 +14,43 @@ interface IPremiumItem {
 }
 
 const PremiumItem: FC<IPremiumItem> = ({ item, profile }) => {
-  const queryClient = useQueryClient()
+  //const queryClient = useQueryClient()
   const { push } = useRouter()
-  const { mutate, isSuccess, isError } = useMutation({
-    mutationKey: ['create premium'],
-    mutationFn: () => PremiumService.create(item.type, profile.id),
-    onSuccess(data) {
-      console.log(data)
-      push(data.data.url)
-      //queryClient.refetchQueries({ queryKey: ['profile'] })
-    },
-  })
+  // const { mutate, isSuccess, isError } = useMutation({
+  //   mutationKey: ['create premium'],
+  //   mutationFn: () => PremiumService.create(item.type, profile.id),
+  //   onSuccess(data) {
+  //     console.log(data)
+  //     push(data.data.url)
+  //     //queryClient.refetchQueries({ queryKey: ['profile'] })
+  //   },
+  // })
 
-  const createButton = () => {
+  const createButton = async () => {
     try {
-      mutate()
+      client
+        .mutate<Mutation>({
+          mutation: CREATE_PAYMENT,
+          variables: {
+            type: item.type,
+            id: profile.id,
+          },
+        })
+        .then(({ data }) => {
+          if (data && data.createPayment) {
+            toast.success('Payment created')
+            push(data.createPayment.url)
+          }
+        })
     } catch (error) {}
   }
 
   return (
-    <div key={item.id} className="border-4 p-2 rounded-xl" style={{ borderColor: item.color }}>
+    <div
+      key={item.id}
+      className="border-4 p-2 rounded-xl w-full sm:w-1/2 md:w-1/2 lg:w-1/3 xl:w-1/3 2xl:w-1/4"
+      style={{ borderColor: item.color }}
+    >
       <span
         className="px-3 py-0.5 truncate rounded-full mb-3 text-black"
         style={{ backgroundColor: item.color }}
@@ -56,7 +75,7 @@ const PremiumItem: FC<IPremiumItem> = ({ item, profile }) => {
       >
         Спробувати безкоштовно на 1 місяць
       </button>
-      <p className="text-center  text-xs">{item.description}</p>
+      <p className="text-center text-xs">{item.description}</p>
     </div>
   )
 }

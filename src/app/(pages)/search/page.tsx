@@ -1,8 +1,8 @@
-import { client } from '@/api/apollo.interceptor'
+import { client } from '@/api/apollo.config'
 import { GET_ALL_TRACKS } from '@/api/graphql/queries/GetTracks'
 import Layout from '@/components/layouts/page-layout'
 import SearchPage from '@/components/screens/search/SearchPage'
-import { TypeParamsFilters, TypeSearchDataFilters } from '@/services/search/search,types'
+import { TypeParamsFilters, TypeSearchDataFilters } from '@/types/search.types'
 
 async function getTracks(searchParams: TypeSearchDataFilters) {
   const { searchTerm, categoryId } = searchParams

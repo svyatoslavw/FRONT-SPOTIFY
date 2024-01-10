@@ -1,0 +1,38 @@
+.container {
+  @apply bg-gradient-custom flex flex-col items-center justify-center py-10 gap-6 overflow-hidden overflow-y-hidden;
+}
+
+.block {
+  @apply bg-[#232323] w-[600px] p-2 rounded-lg;
+}
+
+.link {
+  @apply flex justify-between items-center text-sm hover:bg-[#1a1a1a] rounded-lg py-2 px-4 duration-150;
+  &__item {
+    @apply flex gap-3 items-center;
+  }
+
+  &__icon {
+    @apply p-2 rounded-lg bg-[#333333];
+  }
+}
+
+.premium {
+  @apply bg-[#232323] w-[600px] px-4 py-2 rounded-lg;
+
+  &__header {
+    @apply flex justify-between;
+  }
+
+  &__type {
+    @apply font-semibold text-emerald-500  text-3xl pb-8;
+  }
+
+  &__nonetype {
+    @apply font-semibold text-3xl pb-3 mb-5 text-slate-200;
+  }
+
+  &__decsription {
+    @apply py-2 text-sm text-slate-300;
+  }
+}

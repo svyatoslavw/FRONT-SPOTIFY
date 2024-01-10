@@ -1,0 +1,6 @@
+.progress {
+  @apply w-full;
+  &__bar {
+    @apply h-1.5 w-full bg-transparent overflow-hidden;
+  }
+}

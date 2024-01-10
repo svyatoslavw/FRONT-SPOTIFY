@@ -11,9 +11,11 @@ export const useProfile = () => {
     loading,
     error,
     refetch: refetchProfile,
+    client,
   } = useQuery(GET_PROFILE, {
     variables: { id: user.id },
+    fetchPolicy: 'cache-and-network',
   })
 
-  return { profile: data?.getProfile as IUser, loading, error, refetchProfile }
+  return { profile: data?.getProfile as IUser, loading, error, refetchProfile, client }
 }

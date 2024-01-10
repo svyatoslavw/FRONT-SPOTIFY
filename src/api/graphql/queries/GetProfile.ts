@@ -10,6 +10,24 @@ export const GET_PROFILE = gql`
       country
       login
       role
+      tracks {
+        id
+        name
+        slug
+        image
+        file
+      }
+      likedTracks {
+        id
+        file
+        image
+        name
+        slug
+        artistId
+        artist {
+          name
+        }
+      }
       premium {
         expiration
         price
@@ -22,11 +40,18 @@ export const GET_PROFILE = gql`
           name
           image
           slug
+          userId
+          user {
+            id
+            name
+          }
           tracks {
             id
             file
             image
             name
+            slug
+            artistId
             artist {
               name
             }

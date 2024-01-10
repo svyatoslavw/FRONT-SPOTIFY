@@ -5,31 +5,43 @@
   margin: 0 12px; /* Расстояние между полосой и элементами */
 }
 
-.dropdown {
-  @apply absolute mt-16 z-10 p-1 gap-1 w-[40%] bg-[#333333] rounded-xl;
+.profile {
+  @apply bg-gradient-custom flex flex-col items-center justify-center py-4 gap-8 overflow-hidden overflow-y-hidden;
 
-  animation: slideInTop 0.3s forwards ease-in-out;
-  transform: opacity(0);
-  opacity: 0;
+  &__header {
+    @apply w-[1150px] flex justify-between items-center;
+  }
 
-  > li {
-    @apply hover:bg-gray  hover:text-white rounded-lg bg-opacity-40 my-1 cursor-pointer hover:bg-opacity-80 duration-500 py-2 px-4 ease-linear;
-    &:hover:not(&.active) {
-      @apply bg-opacity-70;
+  &__heading {
+    @apply font-semibold text-4xl py-3 mt-10 mb-6;
+  }
+
+  &__logo {
+    @apply flex gap-1 cursor-pointer items-center text-2xl font-semibold;
+  }
+
+  &__link {
+    @apply hover:text-green-500 text-sm duration-200;
+  }
+
+  &__login {
+    @apply text-sm font-semibold mb-12;
+    > p {
+      @apply text-xs font-normal;
     }
-    // &:first-child {
-    //   @apply rounded-t-xl;
-    // }
-    // &:last-child {
-    //   @apply rounded-b-xl;
-    // }
+  }
+
+  &__field {
+    @apply w-full my-8;
   }
 }
-@keyframes slideInTop {
-  from {
-    opacity: 0;
+
+.buttons {
+  @apply w-full flex justify-end;
+  &__cancel {
+    @apply py-3 px-5 font-semibold rounded-3xl text-[#9ba7a7];
   }
-  to {
-    opacity: 1;
+  &__submit {
+    @apply bg-green-500 w-28 font-semibold rounded-3xl text-black;
   }
 }

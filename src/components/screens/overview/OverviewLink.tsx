@@ -1,8 +1,7 @@
-import { LucideIcon } from 'lucide-react'
+import { ChevronRight, LucideIcon } from 'lucide-react'
 import Link from 'next/link'
 import { FC } from 'react'
-import { MdKeyboardArrowRight } from 'react-icons/md'
-
+import styles from './Overview.module.scss'
 interface IOverviewLink {
   href: string
   Icon: LucideIcon
@@ -11,17 +10,14 @@ interface IOverviewLink {
 
 const OverviewLink: FC<IOverviewLink> = ({ Icon, href, text }) => {
   return (
-    <Link
-      href={href}
-      className="flex justify-between items-center text-sm hover:bg-[#1a1a1a] rounded-lg py-2 px-4 duration-150"
-    >
-      <div className="flex gap-3 items-center">
-        <div className="p-2 rounded-lg bg-[#333333]">
+    <Link href={href} className={styles.link}>
+      <div className={styles.link__item}>
+        <div className={styles.link__icon}>
           <Icon color="gray" size={20} />
         </div>
         <span>{text}</span>
       </div>
-      <MdKeyboardArrowRight color="gray" size={25} />
+      <ChevronRight color="gray" size={25} />
     </Link>
   )
 }

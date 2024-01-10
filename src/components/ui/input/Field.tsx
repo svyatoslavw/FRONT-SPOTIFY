@@ -27,7 +27,7 @@ const Field = forwardRef<HTMLInputElement, IField>(
           />
         </label>
         {error ? (
-          <div className="text-green-500 text-sm">{error}</div>
+          <div className="text-green-500 text-sm z-50">{error}</div>
         ) : (
           <div className="h-5"></div>
         )}

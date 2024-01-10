@@ -28,3 +28,21 @@
     color: white;
   }
 }
+
+.playlist {
+  @apply hover:bg-gray p-2 rounded-lg transition-colors;
+  animation: slideInLeft 1s forwards;
+}
+
+.track {
+  @apply hover:bg-gray p-2 rounded-lg transition-colors;
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

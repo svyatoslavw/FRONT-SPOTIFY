@@ -34,10 +34,11 @@ const config: Config = {
       },
       colors: {
         primary: '#121212',
+        primarybg: '#1e1e1e',
         secondary: '#22c55e',
         purple: '#7828C8',
         graybackg: '#2a2a2a',
-        gray: '#615F5C',
+        gray: '#242424',
         grayLight: '#A1A0A0',
       },
     },
@@ -53,12 +54,20 @@ const config: Config = {
       themes: {
         light: {
           layout: {}, // light theme layout tokens
-          colors: {}, // light theme colors
+          colors: {
+            foreground: '#1e1e1e',
+            background: '#121212',
+            primary: '#121212',
+            secondary: '#22c55e',
+            gray: '#242424',
+            purple: '#7828C8',
+            graybackg: '#2a2a2a',
+          }, // light theme colors
         },
         dark: {
           layout: {
             radius: {
-              small: '10px', // rounded-small
+              small: '6px', // rounded-small
               medium: '10px', // rounded-medium
               large: '10px', // rounded-large
             },
@@ -69,9 +78,11 @@ const config: Config = {
             },
           }, // dark theme layout tokens
           colors: {
+            foreground: '#1e1e1e',
             background: '#121212',
             primary: '#121212',
             secondary: '#22c55e',
+            gray: '#242424',
             purple: '#7828C8',
             graybackg: '#2a2a2a',
           }, // dark theme colors

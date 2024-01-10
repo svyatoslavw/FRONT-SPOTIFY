@@ -1,7 +1,7 @@
 'use client'
 import { Album, Track } from '@/__generated__/ggl/graphql'
 import Loader from '@/components/ui/loader/Loader'
-import { useTypedSelector } from '@/hooks/useTypedSelector'
+import useFilterStore from '@/stores/filterStore'
 import { FC } from 'react'
 import SearchedAlbums from './SearchedAlbums'
 import SearchedTracks from './SearchedTracks'
@@ -11,7 +11,7 @@ interface ICatalog {
   isLoading: boolean
 }
 const CatalogPage: FC<ICatalog> = ({ albums, tracks, isLoading }) => {
-  const { queryParams } = useTypedSelector((state) => state.filters)
+  const { queryParams } = useFilterStore()
   return (
     <>
       {isLoading ? (

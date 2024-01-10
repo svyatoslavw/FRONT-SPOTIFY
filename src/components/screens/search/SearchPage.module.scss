@@ -1,0 +1,12 @@
+.search {
+  @apply overflow-hidden;
+  &__container {
+    @apply px-3 h-full mb-28;
+  }
+  &__heading {
+    @apply text-sm tracking-wider font-normal text-zinc-400;
+  }
+  &__term {
+    @apply font-semibold text-white;
+  }
+}

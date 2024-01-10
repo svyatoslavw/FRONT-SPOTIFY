@@ -1,10 +1,13 @@
+import { Mutation } from '@/__generated__/ggl/graphql'
+import { client } from '@/api/apollo.config'
+import { GET_NEW_TOKENS } from '@/api/graphql/mutations/GetNewTokens'
 import { IAuthResponse, ITokens } from '@/store/user/user.interface'
 import { saveUserToStore } from '@/stores/userStore'
 import Cookies from 'js-cookie'
 
 export const getAccessToken = () => {
   const accessToken = Cookies.get('accessToken')
-  return accessToken || null
+  return accessToken
 }
 
 export const getUserFromStorage = () => {
@@ -13,7 +16,6 @@ export const getUserFromStorage = () => {
 
 export const saveTokensStorage = (data: ITokens) => {
   Cookies.set('accessToken', data.accessToken, {
-    //expires: new Date(Date.now() + 10 * 1000),
     sameSite: 'None',
     secure: true,
   })
@@ -23,14 +25,34 @@ export const saveTokensStorage = (data: ITokens) => {
   })
 }
 
-export const removeFromStorage = () => {
+export const removeFromStorage = async () => {
   Cookies.remove('accessToken')
   Cookies.remove('refreshToken')
-  localStorage.removeItem('user-storage')
+  localStorage.removeItem('user')
+  window.location.reload()
+  //logout()
 }
 
 export const saveToStorage = (data: IAuthResponse) => {
   saveTokensStorage(data)
   saveUserToStore(data.user)
-  //localStorage.setItem('user', JSON.stringify(data.user))
+  // localStorage.setItem('user', JSON.stringify(data.user))
+}
+
+export async function getNewTokens() {
+  const refreshToken = Cookies.get('refreshToken')
+  try {
+    const { data } = await client.mutate<Mutation>({
+      mutation: GET_NEW_TOKENS,
+      variables: { refreshToken: refreshToken },
+    })
+
+    if (data && data.getNewTokens && data.getNewTokens.accessToken) {
+      saveToStorage(data.getNewTokens)
+    }
+
+    return data
+  } catch (error) {
+    console.error('Error fetching new tokens:', error)
+  }
 }

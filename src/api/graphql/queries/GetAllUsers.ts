@@ -5,8 +5,9 @@ export const GET_ALL_USERS = gql`
     getAllUsers {
       id
       email
-      name
       image
+      role
+      name
     }
   }
 `

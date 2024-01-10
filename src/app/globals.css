@@ -10,134 +10,83 @@
 input[type='text']:read-only {
   cursor: not-allowed;
 }
-/* 
-nav ul,
-nav li {
-  margin: 0;
-  padding: 0;
-  outline: 0;
-}
-.fa-2x {
-  font-size: 2em;
-}
-nav .fa {
-  position: relative;
-  display: table-cell;
-  width: 100px;
-  height: 36px;
-  text-align: center;
-  vertical-align: middle;
-  font-size: 25px;
-  transition: all 0.3s ease-in-out;
-}
 
-.ment:hover,
-nav.ment.expanded {
-  width: 310px;
-  overflow: visible;
-  transition: all 0.2s ease-in-out;
-}
-
-.ment {
-  background: rgb(41, 38, 34);
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  height: 100%;
-  left: 0;
-  width: 60px;
+.main-container {
   overflow: hidden;
-  -webkit-transition: width 0.05s linear;
-  transition: width 0.3s linear;
-  z-index: 9009;
+  display: grid;
+  grid-template-columns: 0.1fr 1fr;
+  grid-template-rows: 1;
+  gap: 0;
 }
 
-.ment > ul {
-  margin: 7px 0;
+.main-page {
+  padding: 0.5rem;
+  padding-left: 0;
 }
 
-.ment li {
-  position: relative;
-
-  width: 310px;
+/* Общие стили для скроллбара */
+body {
+  --sb-track-color: #151515;
+  --sb-thumb-color: #252222;
+  --sb-size: 8px;
+  scrollbar-width: thin; /* Для Firefox */
+  scrollbar-color: var(--sb-thumb-color) var(--sb-track-color); /* Для Firefox */
 }
 
-.ment li > a {
-  position: relative;
-  display: table;
-  border-collapse: collapse;
-  border-spacing: 0;
-  color: #ff6e00;
-  font-family: arial;
-  font-size: 14px;
-  text-decoration: none;
-  -webkit-transition: all 0.1s linear;
-  transition: all 0.1s linear;
+/* Стили для WebKit (Chrome, Safari) */
+::-webkit-scrollbar {
+  width: var(--sb-size);
 }
 
-.ment .nav-icon {
-  position: relative;
-  display: table-cell;
-  width: 60px;
-  height: 36px;
-  text-align: center;
-  vertical-align: middle;
-  font-size: 18px;
+::-webkit-scrollbar-track {
+  background: var(--sb-track-color);
+  border-radius: 10px;
 }
 
-.ment .nav-text {
-  position: relative;
-  display: table-cell;
-  vertical-align: middle;
-  width: 355px;
-  padding-right: 10px;
+::-webkit-scrollbar-thumb {
+  background: var(--sb-thumb-color);
+  border-radius: 10px;
 }
 
-.ment > ul.logout {
-  position: absolute;
-  left: 0;
-  bottom: 0;
+/* Стили для Firefox */
+html {
+  scroll-behavior: smooth;
+  scroll-margin: 0;
+  scrollbar-width: thin;
 }
 
-.no-touch .scrollable.hover {
-  overflow-y: hidden;
+::-moz-scrollbar {
+  width: var(--sb-size);
 }
 
-.no-touch .scrollable.hover:hover {
-  overflow-y: auto;
-  overflow: visible;
+::-moz-scrollbar-track {
+  background: var(--sb-track-color);
+  border-radius: 10px;
 }
 
-.ment nav {
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  -o-user-select: none;
-  user-select: none;
+::-moz-scrollbar-thumb {
+  background: var(--sb-thumb-color);
+  border-radius: 10px;
 }
 
-.ment li:hover > a,
-nav.ment li.active > a,
-.dropdown-menu > li > a:hover,
-.dropdown-menu > li > a:focus,
-.dropdown-menu > .active > a,
-.dropdown-menu > .active > a:hover,
-.dropdown-menu > .active > a:focus,
-.no-touch .dashboard-page nav.dashboard-menu ul li:hover a,
-.dashboard-page nav.dashboard-menu ul li.active a {
-  color: #fff;
-  background-color: #e2aa0b;
-  background: #e2aa0b;
-  background: -webkit-linear-gradient(135deg, #e2aa0b 30%, #ff6104 100%);
-  background: linear-gradient(135deg, #e2aa0b 30%, #ff6104 100%);
+/*-------------------------LOADER----------------------------*/
+
+.progress {
+  animation: progress 1s infinite linear;
 }
-#content {
-  background-color: rgba(51, 51, 51, 0.08);
-  background: url(http://slovomarket.ru/wp-content/themes/dt-the7/images/backgrounds/patterns/full/poly.png);
-  background-size: cover;
-  text-align: center;
-  color: #ff6e00;
-  padding: 200px 0;
-  text-transform: uppercase;
-  font-family: 'Roboto Slab', Helvetica, Arial, Verdana, sans-serif;
-} */
+
+.left-right {
+  transform-origin: 0% 50%;
+}
+@keyframes progress {
+  0% {
+    transform: translateX(0) scaleX(0);
+  }
+  40% {
+    transform: translateX(0) scaleX(0.4);
+  }
+  100% {
+    transform: translateX(100%) scaleX(0.5);
+  }
+}
+/*-----------------------------------------------------------*/

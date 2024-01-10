@@ -1,12 +1,12 @@
+import usePlayerStore from '@/stores/playerStore'
 import { ITrack } from '@/types/track.types'
 import { useRouter } from 'next/navigation'
-import { useActions } from './useActions'
 import { useProfile } from './useProfile'
 
 const usePlay = (tracks: ITrack[]) => {
   const { push } = useRouter()
   const { profile } = useProfile()
-  const { setId, setIds } = useActions()
+  const { setId, setIds } = usePlayerStore()
 
   const onPlay = (id: number) => {
     if (!profile) {

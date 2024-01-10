@@ -1,15 +1,13 @@
 import { Playlist } from '@/__generated__/ggl/graphql'
-import { client } from '@/api/apollo.interceptor'
+import { client } from '@/api/apollo.config'
 import { GET_ALL_PLAYLISTS } from '@/api/graphql/queries/GetAllPlaylists'
 import { GET_PLAYLIST_BY_SLUG } from '@/api/graphql/queries/GetPlaylistBySlug'
-import { GET_ALL_TRACKS } from '@/api/graphql/queries/GetTracks'
 import Layout from '@/components/layouts/page-layout'
 import PlaylistSlugPage from '@/components/screens/playlist/PlaylistSlugPage'
-import { TypeSearchDataFilters } from '@/services/search/search,types'
 import { IPagePlaylistSlug, TypeParamPlaylistSlug } from '@/types/playlist-param'
 import { Metadata } from 'next'
 
-export const revalidate = 60
+export const revalidate = 5
 
 export async function generateMetadata({ params }: IPagePlaylistSlug): Promise<Metadata> {
   const data = await getPlaylist(params)
@@ -23,9 +21,15 @@ export async function generateMetadata({ params }: IPagePlaylistSlug): Promise<M
 export async function generateStaticParams() {
   const { data } = await client.query({
     query: GET_ALL_PLAYLISTS,
+    fetchPolicy: 'network-only',
+    context: {
+      fetchOptions: {
+        next: { revalidate: 5 },
+      },
+    },
   })
 
-  const paths = data?.getAllPlaylist.map((playlist: Playlist) => {
+  const paths = data.getAllPlaylist.map((playlist: Playlist) => {
     return {
       params: { slug: playlist.slug },
     }
@@ -34,40 +38,41 @@ export async function generateStaticParams() {
   return paths
 }
 
-// async function getTracks(searchParams: TypeSearchDataFilters) {
-//   const data = await SearchService.getAll(searchParams)
-
-//   return data
-// }
-
-async function getTracks(searchParams: TypeSearchDataFilters) {
-  const { searchTerm, categoryId } = searchParams
-
-  const { data } = await client.query({
-    query: GET_ALL_TRACKS,
-    variables: { searchTerm, categoryId },
-  })
-
-  return data?.getAllTracks
-}
-
-async function getPlaylist(params: TypeParamPlaylistSlug) {
+async function getPlaylist(params: TypeParamPlaylistSlug, time?: number) {
   const { slug } = params || {}
 
   const { data } = await client.query({
     query: GET_PLAYLIST_BY_SLUG,
+    fetchPolicy: 'network-only',
+    context: {
+      fetchOptions: {
+        next: { revalidate: 5 },
+      },
+    },
     variables: { slug },
   })
 
+  // await client.writeQuery({
+  //   query: GET_PLAYLIST_BY_SLUG,
+  //   variables: { slug: data?.getPlaylistBySlug.slug },
+  //   data: {
+  //     getPlaylistBySlug: {
+  //       ...data?.getPlaylistBySlug,
+  //       name: data?.getPlaylistBySlug.name,
+  //       // Добавьте другие обновленные поля сюда в соответствии с вашими данными плейлиста
+  //     },
+  //   },
+  // })
+
   return data?.getPlaylistBySlug
 }
-export default async function PlaylistSlug({ params, searchParams }: IPagePlaylistSlug) {
+
+export default async function PlaylistSlug({ params }: IPagePlaylistSlug) {
   const playlist = await getPlaylist(params)
-  const data = await getTracks(searchParams)
 
   return (
     <Layout>
-      <PlaylistSlugPage playlist={playlist} initialTracks={data} />
+      <PlaylistSlugPage playlist={playlist} />
     </Layout>
   )
 }

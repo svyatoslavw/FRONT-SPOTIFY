@@ -1,4 +1,4 @@
-import { TypeSearchDataFilters } from '@/services/search/search,types'
+import { TypeSearchDataFilters } from '@/types/search.types'
 
 export type TypeParamPlaylistSlug = {
   slug?: string
