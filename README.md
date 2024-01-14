@@ -40,12 +40,12 @@
 ### :camera: Screenshots
 
 <div align="center">
-  <a href="#"><img src="https://github.com/svyatoslavw/FRONT-SPOTIFY/blob/main/src/design/1.png" alt="1" width="30" height="30" /></a><br>
-  <a href="#"><img src="https://github.com/svyatoslavw/FRONT-SPOTIFY/blob/main/src/design/2.png" alt="2" width="30" height="30" /></a><br>
-  <a href="#"><img src="https://github.com/svyatoslavw/FRONT-SPOTIFY/blob/main/src/design/3.png" alt="3" width="30" height="30" /></a><br>
-  <a href="#"><img src="https://github.com/svyatoslavw/FRONT-SPOTIFY/blob/main/src/design/4.png" alt="4" width="30" height="30" /></a><br>
-  <a href="#"><img src="https://github.com/svyatoslavw/FRONT-SPOTIFY/blob/main/src/design/5.png" alt="5" width="30" height="30" /></a><br>
-  <a href="#"><img src="https://github.com/svyatoslavw/FRONT-SPOTIFY/blob/main/src/design/6.png" alt="6" width="30" height="30" /></a><br>
+  <a href="#"><img src="https://github.com/svyatoslavw/FRONT-SPOTIFY/blob/main/src/design/1.png" alt="1" width="1920" height="1080" /></a><br>
+  <a href="#"><img src="https://github.com/svyatoslavw/FRONT-SPOTIFY/blob/main/src/design/2.png" alt="2" width="1920" height="1080" /></a><br>
+  <a href="#"><img src="https://github.com/svyatoslavw/FRONT-SPOTIFY/blob/main/src/design/3.png" alt="3" width="1920" height="1080" /></a><br>
+  <a href="#"><img src="https://github.com/svyatoslavw/FRONT-SPOTIFY/blob/main/src/design/4.png" alt="4" width="1920" height="1080" /></a><br>
+  <a href="#"><img src="https://github.com/svyatoslavw/FRONT-SPOTIFY/blob/main/src/design/5.png" alt="5" width="1920" height="1080" /></a><br>
+  <a href="#"><img src="https://github.com/svyatoslavw/FRONT-SPOTIFY/blob/main/src/design/6.png" alt="6" width="1920" height="1080" /></a><br>
 </div>
 
 ##
