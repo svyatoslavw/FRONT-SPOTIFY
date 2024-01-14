@@ -8,3 +8,4 @@
 [] - create/delete/query/search album
 [] - premium page
 [] - add category front/back
+[] - fix progress bar

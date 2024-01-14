@@ -2,7 +2,7 @@ import { Heart } from 'lucide-react'
 import Link from 'next/link'
 import styles from '../Navbar.module.scss'
 
-const FavoriteTracks = () => {
+const LikedTracks = () => {
   return (
     <Link key={2} href="/favorites" className={styles.track}>
       <div className="flex gap-2 items-center">
@@ -17,10 +17,10 @@ const FavoriteTracks = () => {
           fill="white"
           strokeWidth={1}
         />
-        <p className="text-sm">Favorite tracks</p>
+        <p className="text-sm">Liked tracks</p>
       </div>
     </Link>
   )
 }
 
-export default FavoriteTracks
+export default LikedTracks

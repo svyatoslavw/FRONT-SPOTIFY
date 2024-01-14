@@ -11,7 +11,7 @@ const NavbarHeader = () => {
         <span className="font-semibold text-white">Spotify</span>
       </Link>
       <div>
-        <NavLink href="/" icon={AudioLines} text="Main" />
+        <NavLink href="/" icon={AudioLines} text="Home" />
         <NavLink href="/search" icon={Search} text="Search" />
       </div>
     </div>

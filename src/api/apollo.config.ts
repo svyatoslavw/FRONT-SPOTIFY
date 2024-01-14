@@ -1,5 +1,4 @@
 import { getAccessToken, removeFromStorage } from '@/services/auth/auth.helper'
-import authService from '@/services/auth/auth.service'
 import { ApolloClient, ApolloLink, InMemoryCache, createHttpLink } from '@apollo/client'
 import { setContext } from '@apollo/client/link/context'
 import { onError } from '@apollo/client/link/error'
@@ -22,24 +21,18 @@ const authLink: ApolloLink = setContext((_, { headers }) => {
   return {
     headers: {
       ...headers,
-      authorization: token ? `Bearer ${token}` : '',
+      authorization: token.accessToken ? `Bearer ${token.accessToken}` : '',
     },
   }
 })
 const errorLink = onError(({ graphQLErrors, networkError }) => {
-  const token = getAccessToken()
   if (graphQLErrors) {
     graphQLErrors.map(({ message, locations, path }) => {
       console.log(`[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`)
-      if (message === 'Unauthorized') {
-        try {
-          authService.getNewTokens(token || '')
-        } catch (error) {
-          client
-            .clearStore()
-            .then(() => removeFromStorage())
-            .then(() => window.location.reload())
-        }
+      if (message === 'jwt expired' || message === 'Unauthorized') {
+        client.clearStore()
+        removeFromStorage()
+        window.location.reload()
       }
     })
 

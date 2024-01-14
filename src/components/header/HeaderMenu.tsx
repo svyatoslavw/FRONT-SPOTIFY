@@ -20,7 +20,7 @@ const HeaderMenu: FC = () => {
     try {
       await client.clearStore().then(() => removeFromStorage())
     } catch (error) {
-      toast.error('Eoored logout')
+      toast.error('Errored logout')
     }
   }
   return (

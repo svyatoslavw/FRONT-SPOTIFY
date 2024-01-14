@@ -5,7 +5,6 @@ import Image from 'next/image'
 import { FC, useEffect, useState } from 'react'
 import useSound from 'use-sound'
 import styles from './Player.module.scss'
-import SeekBar from './SeekBar'
 import VolumeBar from './VolumeBar'
 
 interface TrackProps {
@@ -17,6 +16,7 @@ interface TrackProps {
 const Player: FC<TrackProps> = ({ activeId, track, trackUrl }) => {
   const { setId, setVolume, setIsPlaying, volume, isPlaying, ids } = usePlayer()
   const [prevVolume, setPrevVolume] = useState<number>(1)
+
   const onPlayNext = () => {
     if (ids.length === 0 || activeId === undefined) return
 
@@ -86,9 +86,10 @@ const Player: FC<TrackProps> = ({ activeId, track, trackUrl }) => {
 
   const onSeek = (timeInSeconds: number) => {
     if (sound) {
-      sound.seek(timeInSeconds) // Установка времени воспроизведения трека
+      sound.seek(timeInSeconds)
     }
   }
+
   return (
     <div className={styles.player}>
       {track ? (
@@ -105,8 +106,8 @@ const Player: FC<TrackProps> = ({ activeId, track, trackUrl }) => {
         <div className="flex gap-2 w-72 items-center p-2 my-2 rounded-md hover:bg-graybackg  transition-all">
           <Image src={'/logo'} alt="image" width={40} height={40} />
           <div>
-            <p className="text-sm cursor-pointer hover:underline">Выберите трек</p>
-            <p className="text-sm text-slate-300 cursor-pointer hover:underline">Пример</p>
+            <p className="text-sm cursor-pointer hover:underline">Choose song</p>
+            <p className="text-sm text-slate-300 cursor-pointer hover:underline">Example</p>
           </div>
         </div>
       )}
@@ -123,7 +124,7 @@ const Player: FC<TrackProps> = ({ activeId, track, trackUrl }) => {
             </span>
             <SkipForward onClick={onPlayNext} fill="white" size={18} />
           </div>
-          <SeekBar onSeek={onSeek} duration={duration || 0} />
+          {/* <SeekBar onSeek={onSeek} duration={duration || 0} sound={sound} /> */}
         </div>
       </div>
       <div className="w-52 flex items-center gap-3">

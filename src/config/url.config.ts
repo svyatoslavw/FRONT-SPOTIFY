@@ -12,6 +12,7 @@ export const PUBLIC_URL = {
   register: () => '/auth/register',
 
   search: () => '/search',
+  favorites: () => '/favorites',
 
   playlist: (slug = '') => PUBLIC_URL.root(`playlist${slug ? '/' + slug : ''}`),
   track: (slug = '') => PUBLIC_URL.root(`track${slug ? '/' + slug : ''}`),

@@ -1,13 +1,14 @@
 import { Mutation } from '@/__generated__/ggl/graphql'
 import { client } from '@/api/apollo.config'
 import { GET_NEW_TOKENS } from '@/api/graphql/mutations/GetNewTokens'
-import { IAuthResponse, ITokens } from '@/store/user/user.interface'
 import { saveUserToStore } from '@/stores/userStore'
+import { IAuthResponse, ITokens } from '@/types/user.types'
 import Cookies from 'js-cookie'
 
 export const getAccessToken = () => {
   const accessToken = Cookies.get('accessToken')
-  return accessToken
+  const refreshToken = Cookies.get('refreshToken')
+  return {accessToken, refreshToken}
 }
 
 export const getUserFromStorage = () => {

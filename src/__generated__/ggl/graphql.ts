@@ -97,7 +97,6 @@ export type Mutation = {
   deleteProfile: User;
   getNewTokens: AuthResponse;
   login: AuthResponse;
-  logout: Scalars['String']['output'];
   register: AuthResponse;
   toggleFavorite: User;
   toggleFavoriteTrack: User;
@@ -301,7 +300,7 @@ export type SearchResult = {
 
 export type StatisticsResponse = {
   __typename?: 'StatisticsResponse';
-  name?: Maybe<Scalars['String']['output']>;
+  name: Scalars['String']['output'];
   value?: Maybe<Scalars['Float']['output']>;
 };
 
@@ -623,7 +622,6 @@ export type Mutation = {
   deleteProfile: User;
   getNewTokens: AuthResponse;
   login: AuthResponse;
-  logout: Scalars['String']['output'];
   register: AuthResponse;
   toggleFavorite: User;
   toggleFavoriteTrack: User;
@@ -827,7 +825,7 @@ export type SearchResult = {
 
 export type StatisticsResponse = {
   __typename?: 'StatisticsResponse';
-  name?: Maybe<Scalars['String']['output']>;
+  name: Scalars['String']['output'];
   value?: Maybe<Scalars['Float']['output']>;
 };
 

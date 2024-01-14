@@ -1,6 +1,6 @@
 'use client'
 import { Album, Track } from '@/__generated__/ggl/graphql'
-import Loader from '@/components/ui/loader/Loader'
+import ProgressBar from '@/components/ui/progress-bar/ProgressBar'
 import useFilterStore from '@/stores/filterStore'
 import { FC } from 'react'
 import SearchedAlbums from './SearchedAlbums'
@@ -15,7 +15,7 @@ const CatalogPage: FC<ICatalog> = ({ albums, tracks, isLoading }) => {
   return (
     <>
       {isLoading ? (
-        <Loader />
+        <ProgressBar />
       ) : (
         queryParams.searchTerm !== '' &&
         queryParams.searchTerm && (

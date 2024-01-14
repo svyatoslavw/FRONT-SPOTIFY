@@ -1,39 +1,34 @@
+// FIXME: progress bar
+
 import { Range, Root, Track } from '@radix-ui/react-slider'
-import { FC, useCallback, useState } from 'react'
+import { FC } from 'react'
 
 interface SeekBarProps {
   duration: number
   onSeek: (timeInSeconds: number) => void
+  sound: any
 }
 
-const SeekBar: FC<SeekBarProps> = ({ duration, onSeek }) => {
-  const [currentTime, setCurrentTime] = useState(0)
-
-  const formatTime = (durationInMilliseconds: number) => {
-    const totalSeconds = Math.floor(durationInMilliseconds / 1000) // Переводим миллисекунды в секунды
-    const minutes = Math.floor(totalSeconds / 60)
-    const seconds = totalSeconds % 60
-    const secondsWithLeadingZero = seconds < 10 ? `0${seconds}` : `${seconds}`
-    return `${minutes}:${secondsWithLeadingZero}`
-  }
-
-  const calculateProgress = useCallback(() => {
-    return (currentTime / duration) * 100 || 0
-  }, [currentTime, duration])
+const SeekBar: FC<SeekBarProps> = ({ duration, onSeek, sound }) => {
+  // const formatTime = (durationInMilliseconds: number) => {
+  //   const totalSeconds = Math.floor(durationInMilliseconds / 1000)
+  //   const minutes = Math.floor(totalSeconds / 60)
+  //   const seconds = totalSeconds % 60
+  //   const secondsWithLeadingZero = seconds < 10 ? `0${seconds}` : `${seconds}`
+  //   return `${minutes}:${secondsWithLeadingZero}`
+  // }
 
   const handleSeek = (newValues: number[]) => {
     if (newValues.length > 0) {
       const time = newValues[0] / 1000
       console.log(time)
-
-      setCurrentTime(time)
       onSeek(time)
     }
   }
+
   return (
     <Root
       className="relative flex items-center select-none touch-none gap-5 w-full h-3"
-      defaultValue={[calculateProgress()]}
       onValueChange={handleSeek}
       max={duration}
       step={0.1}

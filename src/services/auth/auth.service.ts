@@ -1,9 +1,9 @@
-import { IUser } from '@/types/user.types'
+import { IUser } from '@/types/user.types';
 
 class AuthService {
   async getNewTokens(
-    accessToken: string,
-  ): Promise<{ accessToken: string; refreshToken: string; user: IUser }> {
+    refreshToken: string,
+  ) {
     const query = `
     mutation getNewTokens($refreshToken: String!) {
       getNewTokens(refreshToken: $refreshToken) {
@@ -18,19 +18,27 @@ class AuthService {
       }
     }`
 
-    return fetch(process.env.GRAPHQL_URL, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: accessToken ? `Bearer ${accessToken}` : '',
-      },
-      body: JSON.stringify({ query }),
-    })
-      .then((response) => response.json())
-      .then(({ data }) => data.getNewTokens)
-      .catch((error) => {
-        throw error
+    const variables = { refreshToken }
+
+    try {
+      const newTokens = await fetch(process.env.GRAPHQL_URL, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'apollo-require-preflight': 'true',
+          'Authorization': refreshToken ? `Bearer ${refreshToken}` : '',
+        },
+        body: JSON.stringify({ query, variables }),
       })
+        .then((res) => res.json())
+        .then(({ data }) => console.log(data))
+        console.log(newTokens);
+        
+      // saveToStorage(newTokens)
+      // return newTokens
+    } catch (error) {
+      throw error
+    }
   }
 
   async getProfileByToken(accessToken: string): Promise<IUser> {
@@ -45,7 +53,7 @@ class AuthService {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${accessToken}`,
+        'Authorization': `Bearer ${accessToken}`,
       },
       body: JSON.stringify({ query }),
     })

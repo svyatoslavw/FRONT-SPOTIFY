@@ -20,7 +20,7 @@ const NavLink: FC<INavLink> = ({ href, icon: Icon, text, title }) => {
       <span>
         <Icon size={24} />
       </span>
-      <span>{text}</span>
+      <span className="font-semibold">{text}</span>
     </Link>
   )
 }

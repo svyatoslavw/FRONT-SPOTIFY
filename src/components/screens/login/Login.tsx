@@ -16,7 +16,6 @@ import { SubmitHandler, useForm } from 'react-hook-form'
 
 import { AuthDto, Mutation } from '@/__generated__/ggl/graphql'
 import { LOGIN_USER } from '@/api/graphql/mutations/Login'
-import GoogleAuth from '@/components/auth-buttons/GoogleAuth'
 import { PUBLIC_URL } from '@/config/url.config'
 import { saveToStorage } from '@/services/auth/auth.helper'
 import { ILogin } from '@/types/user.types'
@@ -66,8 +65,7 @@ const LoginPage: FC = () => {
     <div className={styles.login}>
       <section>
         <form onSubmit={handleSubmit(onSubmit)} className={clsx('shadow-xl', styles.form)}>
-          <GoogleAuth position="top" type="login" />
-          <h1 className={styles.type}>Войти в Spotify</h1>
+          <h1 className={styles.type}>Sign in Spotify</h1>
           <Field
             Icon={AtSign}
             {...formRegister('email', {
@@ -97,12 +95,12 @@ const LoginPage: FC = () => {
             error={errors.password?.message}
           />
 
-          <Button className={styles.customBtn}>Ввойти</Button>
+          <Button className={styles.customBtn}>Sign in</Button>
 
           <div className="flex gap-2 items-center text-sm">
-            Нет аккаунта?
+            Don't have an account?
             <Link href={'/auth/register'} className={styles.resetBtn} type="button">
-              Регистрация в Spotify
+              Sign up
             </Link>
           </div>
         </form>

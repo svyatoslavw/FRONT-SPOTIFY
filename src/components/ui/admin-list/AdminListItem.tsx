@@ -8,7 +8,7 @@ const AdminListItem: FC<IAdminListItem> = ({ removeHandler, listItem }) => {
     <tr className="border-2 border-t-0 border-neutral-800 hover:bg-neutral-800 transition-background">
       {listItem.items &&
         listItem.items.map((value, index) => (
-          <td key={value} className="whitespace-nowrap px-4 py-2 font-normal text-xs ">
+          <td key={value} className="whitespace-nowrap px-4 py-2 font-normal text-sm ">
             {index === 0 ? (
               <Image
                 src={value}

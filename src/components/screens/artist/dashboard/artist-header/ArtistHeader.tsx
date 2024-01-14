@@ -45,10 +45,6 @@ const ArtistHeader: FC<{ profile: IUser }> = ({ profile }) => {
             <p className="text-8xl tracking-tighter font-black">{profile.name}</p>
           </div>
         </div>
-        {/* <div className="px-16 flex gap-8">
-          <button className={styles.customBtn}>add track</button>
-          <button className={styles.customBtn}>add album</button>
-        </div> */}
       </>
     </div>
   )

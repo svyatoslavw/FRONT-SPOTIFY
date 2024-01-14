@@ -7,13 +7,13 @@ import ToasterProvider from '@/providers/toaster-provider/ToasterProvider'
 import { ApolloProvider } from '@apollo/client'
 import { loadDevMessages, loadErrorMessages } from '@apollo/client/dev'
 import { NextUIProvider } from '@nextui-org/react'
-import { Roboto } from 'next/font/google'
+import { Open_Sans } from 'next/font/google'
 import { usePathname } from 'next/navigation'
 import { PropsWithChildren } from 'react'
 import './globals.css'
 
-const roboto = Roboto({
-  weight: ['400', '500', '700', '900'],
+const roboto = Open_Sans({
+  weight: ['400', '500', '600', '700', '800'],
   style: ['normal'],
   subsets: ['latin'],
   display: 'swap',

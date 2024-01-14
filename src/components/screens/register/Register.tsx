@@ -64,7 +64,7 @@ const RegisterPage: FC = () => {
     <div className={styles.login}>
       <section>
         <form onSubmit={handleSubmit(onSubmit)} className={clsx('shadow-xl', styles.form)}>
-          <h1 className={styles.type}>Зарегистрируйтесь и погрузитесь в музыку</h1>
+          <h1 className={styles.type}>Sign up and immerse yourself in music</h1>
           <Field
             {...formRegister('email', {
               required: 'email is required',
@@ -119,9 +119,9 @@ const RegisterPage: FC = () => {
           <Button className={styles.customBtn}>Next</Button>
 
           <div className="flex gap-2 items-center text-sm">
-            Уже есть аккаунт?
+            Already have an account?
             <Link href={'/auth/login'} className={styles.resetBtn} type="button">
-              Войдите в него.
+              Sign in.
             </Link>
           </div>
           <GoogleAuth position="bottom" type="register" />

@@ -35,7 +35,7 @@
 }
 
 .track {
-  @apply hover:bg-gray p-2 rounded-lg transition-colors;
+  @apply hover:bg-gray p-2 rounded-lg transition-colors relative;
 }
 
 @keyframes slideInLeft {

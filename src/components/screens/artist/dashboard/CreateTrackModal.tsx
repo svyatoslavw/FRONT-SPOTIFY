@@ -97,6 +97,7 @@ const CreateTrackModal: FC<ICreateModal> = ({ isOpen, onClose, onOpenChange, pro
                     {...formRegister('name', { required: 'email is required' })}
                     className="w-full my-8"
                     placeholder="Name"
+                    error={errors.name?.message}
                     Icon={FileAudio}
                   />
                   <Controller
@@ -125,8 +126,8 @@ const CreateTrackModal: FC<ICreateModal> = ({ isOpen, onClose, onOpenChange, pro
                       />
                     )}
                   />
-                  <Button type="submit" color="secondary" className="w-full">
-                    Delete
+                  <Button type="submit" isDisabled={loading} color="secondary" className="w-full">
+                    Create
                   </Button>
                 </form>
               </ModalBody>
