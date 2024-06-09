@@ -1,9 +1,9 @@
 'use client';
-import Field from '@/shared/ui/input/field';
+import Field from '@/shared/ui/field';
 
 import { useProfile } from '@/entities/user/models/useProfile';
 import { UPDATE_PROFILE } from '@/shared/api/graphql/mutations/UpdateProfile';
-import UploadField from '@/shared/ui/upload-field/UploadField';
+import { UploadField } from '@/shared/ui/upload-field/UploadField';
 import { useMutation } from '@apollo/client';
 import { ChevronLeftIcon, LoaderIcon, Mail, User } from 'lucide-react';
 import Image from 'next/image';
@@ -113,10 +113,10 @@ const ProfilePage: FC = () => {
             <ChevronLeftIcon size={30} color="white" />
           </Link>
           <h1 className="font-semibold text-4xl py-3 mt-10 mb-6">
-            Редактирование профиля
+            Editing your profile
           </h1>
           <div className="text-sm font-semibold mb-12">
-            Имя пользователя <p>{profile && profile.login}</p>
+            Username <p>{profile && profile.login}</p>
           </div>
           <Field
             {...formRegister('email', {

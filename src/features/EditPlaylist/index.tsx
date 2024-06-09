@@ -13,7 +13,7 @@ import {
   DialogHeader,
   DialogTrigger,
 } from '@/shared/ui/dialog';
-import { Field } from '@/shared/ui/field';
+import Field from '@/shared/ui/field';
 import { UploadField } from '@/shared/ui/upload-field/UploadField';
 import { FileAudio, PencilIcon } from 'lucide-react';
 import { useRouter } from 'next/navigation';

@@ -44,8 +44,6 @@
   <a href="#"><img src="https://github.com/svyatoslavw/FRONT-SPOTIFY/blob/main/src/design/2.png" alt="2" /></a><br>
   <a href="#"><img src="https://github.com/svyatoslavw/FRONT-SPOTIFY/blob/main/src/design/3.png" alt="3"/></a><br>
   <a href="#"><img src="https://github.com/svyatoslavw/FRONT-SPOTIFY/blob/main/src/design/4.png" alt="4" /></a><br>
-  <a href="#"><img src="https://github.com/svyatoslavw/FRONT-SPOTIFY/blob/main/src/design/5.png" alt="5"  /></a><br>
-  <a href="#"><img src="https://github.com/svyatoslavw/FRONT-SPOTIFY/blob/main/src/design/6.png" alt="6" /></a><br>
 </div>
 
 ##
