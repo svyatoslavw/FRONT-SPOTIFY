@@ -1,0 +1,1 @@
+export { SearchedAlbums } from './SearchedAlbumList';

@@ -1,7 +1,0 @@
-.header {
-  @apply h-[80px] w-full flex bg-transparent justify-between px-5 items-center;
-
-  &__btns {
-    @apply p-1 bg-black cursor-pointer flex justify-center items-center rounded-full hover:scale-125 transition;
-  }
-}

@@ -1,9 +1,0 @@
-.search {
-  @apply flex items-center justify-center w-full h-8;
-  &__heading {
-    @apply text-lg font-semibold pl-1 mb-3;
-  }
-  &__icon {
-    @apply dark:text-white/90 cursor-pointer duration-200 text-white/50 hover:text-white;
-  }
-}

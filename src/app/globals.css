@@ -2,91 +2,115 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  background-color: #000;
-  color: white;
-}
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 240 10% 3.9%;
 
-input[type='text']:read-only {
-  cursor: not-allowed;
-}
+    --card: 0 0% 100%;
+    --card-foreground: 240 10% 3.9%;
 
-.main-container {
-  overflow: hidden;
-  display: grid;
-  grid-template-columns: 0.1fr 1fr;
-  grid-template-rows: 1;
-  gap: 0;
-}
+    --popover: 0 0% 100%;
+    --popover-foreground: 240 10% 3.9%;
 
-.main-page {
-  padding: 0.5rem;
-  padding-left: 0;
-}
+    --primary: 240 5.9% 10%;
+    --primary-foreground: 0 0% 98%;
 
-/* Общие стили для скроллбара */
-body {
-  --sb-track-color: #151515;
-  --sb-thumb-color: #252222;
-  --sb-size: 8px;
-  scrollbar-width: thin; /* Для Firefox */
-  scrollbar-color: var(--sb-thumb-color) var(--sb-track-color); /* Для Firefox */
-}
+    --secondary: 240 4.8% 95.9%;
+    --secondary-foreground: 240 5.9% 10%;
 
-/* Стили для WebKit (Chrome, Safari) */
-::-webkit-scrollbar {
-  width: var(--sb-size);
-}
+    --muted: 240 4.8% 95.9%;
+    --muted-foreground: 240 3.8% 46.1%;
 
-::-webkit-scrollbar-track {
-  background: var(--sb-track-color);
-  border-radius: 10px;
-}
+    --accent: 240 4.8% 95.9%;
+    --accent-foreground: 240 5.9% 10%;
 
-::-webkit-scrollbar-thumb {
-  background: var(--sb-thumb-color);
-  border-radius: 10px;
-}
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
 
-/* Стили для Firefox */
-html {
-  scroll-behavior: smooth;
-  scroll-margin: 0;
-  scrollbar-width: thin;
-}
+    --border: 240 5.9% 90%;
+    --input: 240 5.9% 90%;
+    --ring: 240 10% 3.9%;
 
-::-moz-scrollbar {
-  width: var(--sb-size);
-}
-
-::-moz-scrollbar-track {
-  background: var(--sb-track-color);
-  border-radius: 10px;
-}
-
-::-moz-scrollbar-thumb {
-  background: var(--sb-thumb-color);
-  border-radius: 10px;
-}
-
-/*-------------------------LOADER----------------------------*/
-
-.progress {
-  animation: progress 1s infinite linear;
-}
-
-.left-right {
-  transform-origin: 0% 50%;
-}
-@keyframes progress {
-  0% {
-    transform: translateX(0) scaleX(0);
+    --radius: 0.5rem;
   }
-  40% {
-    transform: translateX(0) scaleX(0.4);
-  }
-  100% {
-    transform: translateX(100%) scaleX(0.5);
+
+  .dark {
+    --background: 240 10% 3.9%;
+    --foreground: 0 0% 98%;
+
+    --card: 240 10% 3.9%;
+    --card-foreground: 0 0% 98%;
+
+    --popover: 240 10% 3.9%;
+    --popover-foreground: 0 0% 98%;
+
+    --primary: 0 0% 98%;
+    --primary-foreground: 240 5.9% 10%;
+
+    --secondary: 240 3.7% 15.9%;
+    --secondary-foreground: 0 0% 98%;
+
+    --muted: 240 3.7% 15.9%;
+    --muted-foreground: 240 5% 64.9%;
+
+    --accent: 240 3.7% 15.9%;
+    --accent-foreground: 0 0% 98%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 240 3.7% 15.9%;
+    --input: 240 3.7% 15.9%;
+    --ring: 240 4.9% 83.9%;
   }
 }
-/*-----------------------------------------------------------*/
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    --sb-track-color: #151515;
+    --sb-thumb-color: #252222;
+    --sb-size: 8px;
+    scrollbar-width: thin; /* Для Firefox */
+    scrollbar-color: var(--sb-thumb-color) var(--sb-track-color); /* Для Firefox */
+  }
+
+  ::-webkit-scrollbar {
+    width: var(--sb-size);
+  }
+
+  ::-webkit-scrollbar-track {
+    background: var(--sb-track-color);
+    border-radius: 10px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: var(--sb-thumb-color);
+    border-radius: 10px;
+  }
+
+  /* Стили для Firefox */
+  html {
+    scroll-behavior: smooth;
+    scroll-margin: 0;
+    scrollbar-width: thin;
+  }
+
+  ::-moz-scrollbar {
+    width: var(--sb-size);
+  }
+
+  ::-moz-scrollbar-track {
+    background: var(--sb-track-color);
+    border-radius: 10px;
+  }
+
+  ::-moz-scrollbar-thumb {
+    background: var(--sb-thumb-color);
+    border-radius: 10px;
+  }
+}

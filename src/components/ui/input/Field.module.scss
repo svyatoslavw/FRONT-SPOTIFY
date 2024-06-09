@@ -1,9 +1,0 @@
-.field {
-  @apply px-4 rounded-md py-3 focus:outline-none text-sm border-gray bg-[#1e1e1e] w-full my-1 border-2 transition focus:border-white;
-}
-.icon {
-  @apply absolute z-[1] -mt-5 text-sm justify-center flex items-center ml-2 px-2;
-}
-.readOnly {
-  @apply border-x-2 border-t-2 border-[#3d3d3d] focus:border-black; // Здесь вы можете установить желаемый фон для readOnly
-}
